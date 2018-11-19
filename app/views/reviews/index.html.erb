@@ -1,0 +1,10 @@
+<h1> Reviews for <%= @book.title %> </h1>
+
+<br />
+ <% if @book.review_count.to_i == 0 %>
+  <%= @book.title %> does not have any reviews yet. Be the first to review this book!
+ <% end %>
+
+<br />
+<br />
+<%= button_to "Add Review", new_book_review_path(@book, @review), :method => :get %>

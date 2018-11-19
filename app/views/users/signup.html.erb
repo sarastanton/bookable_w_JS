@@ -1,0 +1,27 @@
+<h2> Create an Account: </h2>
+
+<%= form_for @user do |f| %>
+  <%= f.label :username %>
+  <%= f.text_field :username %>
+  <br />
+  <br />
+  <%= f.label :password %>
+  <%= f.password_field :password %>
+  <br />
+  <br />
+  <%= f.label :password_confirmation, "Confirm password" %>
+  <%= f.password_field :password_confirmation  %>
+  <br />
+  <br />
+  <%= f.submit "Create Account" %>
+<% end %>
+
+
+<br />
+<h2> OR </h2>
+<br />
+<%= link_to image_tag("goodreads-login-button-7bd184d3077cf3580f68aa8a00de39ce.png"), "/auth/goodreads2" %>
+
+<br />
+<br />
+<%= render partial: "layouts/errors", locals: {object: @user} %>

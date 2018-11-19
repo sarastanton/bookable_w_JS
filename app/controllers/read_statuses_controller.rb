@@ -1,0 +1,3 @@
+class ReadStatusesController < ApplicationController
+
+end

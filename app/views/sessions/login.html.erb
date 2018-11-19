@@ -1,0 +1,19 @@
+<h2> Log In: </h2>
+
+<%= form_for @user, url: login_path(@user), method: :post do |f| %>
+  <%= f.label :username %>
+  <%= f.text_field :username %>
+  <br />
+  <br />
+  <%= f.label :password %>
+  <%= f.password_field :password %>
+  <br />
+  <br />
+  <%= f.submit "Log In" %>
+<% end %>
+
+
+
+<h2> OR </h2>
+
+<%= link_to image_tag("goodreads-login-button-7bd184d3077cf3580f68aa8a00de39ce.png"), "/auth/goodreads2" %>

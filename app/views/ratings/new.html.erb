@@ -1,0 +1,10 @@
+<h2>How would you rate <%= @book.title %> by <%= @book.author.name %>?</h2>
+
+<br />
+<br />
+
+<%= render partial: "rating_form", locals: {book: @book, rating: @rating} %>
+
+<br />
+<br />
+<%= render partial: "layouts/errors", locals: {object: @rating} %>

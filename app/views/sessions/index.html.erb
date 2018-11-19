@@ -1,0 +1,21 @@
+<h1> Welcome to Bookable! </h1>
+<br />
+<% if logged_in? %>
+  <h2> <%= link_to "Browse Books", books_path %> </h2>
+  <br />
+  <h2> <%= link_to "Browse Authors", authors_path %> </h2>
+  <br />
+  <h2> <%= link_to "Browse Genres", genres_path %> </h2>
+<% else %>
+  <h2> <%= link_to "Sign Up", signup_path %> </h2>
+  <br />
+  <h2> <%= link_to "Sign In", login_path %> </h2>
+  <br />
+<% end %>
+
+<br />
+<br />
+
+<div class="error_message">
+  <h3> <%= flash[:message] %> </h3>
+</div>
