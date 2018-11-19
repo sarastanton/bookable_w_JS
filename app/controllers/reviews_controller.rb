@@ -27,7 +27,10 @@ class ReviewsController < ApplicationController
 
   def index
     @reviews = Review.where(book_id: params[:book_id])
-    render json: @reviews, status: 200
+    respond_to do |format|
+      format.html { render :index }
+      format.json { render json: @reviews, status: 200 }
+    end
   end
 
   def show
@@ -38,11 +41,10 @@ class ReviewsController < ApplicationController
   def edit
     @review = Review.find(params[:id])
     if @review.user == current_user
-      render 'edit'
+      render json: @review, status: 200
     else
       redirect_to book_reviews_path(@book)
     end
-    render json: @review, status: 200
   end
 
   def update

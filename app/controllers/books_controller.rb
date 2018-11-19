@@ -26,7 +26,6 @@ class BooksController < ApplicationController
     @books = Book.all.sort_by(&:title)
     if params[:add_to_my_books]
       @book.add_to_my_books(@user)
-      render 'index'
     end
     respond_to do |format|
       format.html { render 'index' }

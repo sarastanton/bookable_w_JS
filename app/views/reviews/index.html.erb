@@ -5,6 +5,18 @@
   <%= @book.title %> does not have any reviews yet. Be the first to review this book!
  <% end %>
 
+
+<ul>
+  <% @reviews.each do |review| %>
+    <li> <%= review.user.username%> wrote: "<%= review.content %>" </li>
+    <br />
+    <% if review.user == current_user %>
+      <%= button_to "Edit Review", edit_book_review_path(@book, review), :method => :get %>
+      <br />
+    <% end %>
+  <% end %>
+</ul>
+
 <br />
 <br />
 <%= button_to "Add Review", new_book_review_path(@book, @review), :method => :get %>
