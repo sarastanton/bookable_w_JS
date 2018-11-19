@@ -1,48 +1,11 @@
-// const authorApp = new AuthorsApp
+// <table class="table">
+//   <th> Author </th>
+//   <th> Number of Books </th>
 //
-// class AuthorsAdapter {
-//   constructor() {
-//     this.baseUrl = 'http://localhost:3000/authors'
-//   }
-//
-//   getAuthors() {
-//     return fetch(this.baseUrl).then(response => response.json() );
-//   }
-// }
-//
-// class AuthorsApp {
-//   constructor() {
-//     this.authors = new Authors();
-//   }
-// }
-//
-// class Authors {
-//   constructor() {
-//     this.authors = [];
-//     this.adapter = new AuthorsAdapter();
-//     this.bindEventListeners();
-//     this.fetchAndLoadAuthors();
-//   }
-//
-//   fetchAndLoadAuthors() {
-//     this.adapter.getAuthors().then(authors => {
-//       console.log(notes)
-//     });
-//   }
-//
-// }
-//
-//
-//
-//
-//
-//
-//
-// $(document).ready(function() {
-//
-//
-//
-//
-//
-//
-// })
+//   <% @authors.each do |author| %>
+//   <tr>
+//     <td> <%= link_to author.name, author_path(author) %> </td>
+//     <td> <%= author.books.count %> </td>
+//   </tr>
+//   <% end %>
+// </table>

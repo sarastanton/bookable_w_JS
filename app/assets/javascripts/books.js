@@ -1,4 +1,5 @@
 $(document).ready(function() {
+
   $(".show_reviews_button").on("click", function(e) {
     e.preventDefault();
     $.get(`${this.action}.json`).done(function(response) {
@@ -13,5 +14,21 @@ $(document).ready(function() {
           $("#show-reviews").append(`<%= @book.title %> does not have any reviews yet. Be the first to review this book!`)
         }
     })
-  })
+  });
+
+  // render()
+//use this to load authors/books/genres?
+
+  $("#new_review").on("submit", function(e) {
+    e.preventDefault();
+    let reviewText = $("#review_content").val();
+    let action = $("#new_review").attr("action")
+    console.log(reviewText);
+    console.log(action)
+  });
+
 })
+
+function render() {
+  $(".container").append("Test")
+}
