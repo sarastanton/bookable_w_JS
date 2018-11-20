@@ -33,21 +33,22 @@ class Authors {
     this.adapter = new AuthorsAdapter()
     // this.bindEventListeners()
     this.fetchAndLoadAuthors()
+    this.authors = []
   }
 
   fetchAndLoadAuthors() {
     this.adapter
     .getAuthors()
-    .then(authors => {
-      authors.forEach(author => renderAuthors(author))
+    // .then(authors => {
+    //   authors.forEach(author => this.authors.push(author))
+    // })
+    .then(() => {
+    this.renderAuthors()
     })
   }
 
-  renderAuthors(author) {
-    const $authorsColumn = $("td.col-1")
-    const $authorBookCount = $("td.col-2")
-    $authorsColumn.text(author["name"])
-    $authorBookCount.text(author["books"].length)
+  renderAuthors() {
+    console.log(this["authors"])
   }
 
 
