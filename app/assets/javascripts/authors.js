@@ -29,7 +29,6 @@ class AuthorsAdapter {
 
 class Authors {
   constructor() {
-    // this.authors = [] // Don't think I need this - array comes from controller?
     this.adapter = new AuthorsAdapter()
     // this.bindEventListeners()
     this.fetchAndLoadAuthors()
@@ -39,17 +38,17 @@ class Authors {
   fetchAndLoadAuthors() {
     this.adapter
     .getAuthors()
-    // .then(authors => {
-    //   authors.forEach(author => this.authors.push(author))
-    // })
-    .then(() => {
-    this.renderAuthors()
+    .then(authors => {
+      this.renderAuthors(authors)
     })
   }
 
-  renderAuthors() {
-    console.log(this["authors"])
-  }
+  renderAuthors(authors) {
+    authors.forEach(author =>
+    $("#authors_index_container").append(`<tr><td>${author["name"]}</td><td>${author["books"].length}</td></tr>`)
+  )}
+
+  //
 
 
 }
