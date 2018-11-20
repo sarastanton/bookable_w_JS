@@ -51,7 +51,8 @@ class Authors {
     $(document).ready(function() {
       $(".new_author input").on("click", function(e) {
         e.preventDefault();
-        alert("Click!");
+        const form_input = $("#author_name").val();
+        console.log(form_input);
       });
     });
   }
