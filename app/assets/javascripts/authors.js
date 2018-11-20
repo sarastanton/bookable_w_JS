@@ -30,9 +30,8 @@ class AuthorsAdapter {
 class Authors {
   constructor() {
     this.adapter = new AuthorsAdapter()
-    // this.bindEventListeners()
+    this.bindEventListeners()
     this.fetchAndLoadAuthors()
-    this.authors = []
   }
 
   fetchAndLoadAuthors() {
@@ -48,7 +47,14 @@ class Authors {
     $("#authors_index_container").append(`<tr><td>${author["name"]}</td><td>${author["books"].length}</td></tr>`)
   )}
 
-  //
+  bindEventListeners() {
+    $(document).ready(function() {
+      $(".new_author input").on("click", function(e) {
+        e.preventDefault();
+        alert("Click!");
+      });
+    });
+  }
 
 
 }

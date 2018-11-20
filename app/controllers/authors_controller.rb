@@ -5,13 +5,13 @@ class AuthorsController < ApplicationController
   before_action :find_author_in_params
   skip_before_action :find_author_in_params, only: [:new, :create]
 
-  def new
-    @author = Author.new
-    respond_to do |format|
-      format.html { render :new }
-      format.json { render json: @author, status: 200 }
-    end
-  end
+  # def new
+  #   @author = Author.new
+  #   respond_to do |format|
+  #     format.html { render :new }
+  #     format.json { render json: @author, status: 200 }
+  #   end
+  # end
 
   def create
     @author = Author.create(author_params)
@@ -25,6 +25,7 @@ class AuthorsController < ApplicationController
 
   def index
     @authors = Author.all.sort_by(&:name)
+    @author = Author.new
     respond_to do |format|
       format.html { render :index }
       format.json { render json: @authors, status: 200 }
