@@ -15,7 +15,12 @@ class AuthorsController < ApplicationController
 
   def create
     @author = Author.create(author_params)
-    if !@author.save
+    if @author.save
+      respond_to do |format|
+        format.html { render :index }
+        format.json { render json: @author, status: 200 }
+      end
+    else
       render 'new'
     end
   end

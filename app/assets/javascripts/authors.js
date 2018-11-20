@@ -32,6 +32,7 @@ class Authors {
     this.adapter = new AuthorsAdapter()
     // this.bindEventListeners()
     this.fetchAndLoadAuthors()
+    this.createNewAuthor()
   }
 
     // bindEventListeners() {
@@ -62,7 +63,9 @@ class Authors {
       $("#new_author").on("submit", function(e) {
         e.preventDefault();
         formInput = $("#author_name").val();
-        this.adapter.createDBAuthor(form_input).then(author => console.log(author))
+        alert(formInput)
+        // this.adapter.createDBAuthor(form_input)
+        // fetchAndLoadAuthors()
       })
     })
   }
