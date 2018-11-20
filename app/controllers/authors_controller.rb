@@ -15,10 +15,7 @@ class AuthorsController < ApplicationController
 
   def create
     @author = Author.create(author_params)
-    render json: @author, status: 200
-    if @author.save
-      redirect_to authors_path(@author)
-    else
+    if !@author.save
       render 'new'
     end
   end

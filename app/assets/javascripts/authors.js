@@ -1,14 +1,3 @@
-// <table class="table">
-//   <th> Author </th>
-//   <th> Number of Books </th>
-//
-//   <tr div id="authors_index_container">
-//     <td> </td>
-//     <td> </td>
-//   </tr>
-// </table>
-//////////////////////////////////////
-
 class AuthorsApp {
   constructor() {
     this.authors = new Authors()
@@ -25,14 +14,29 @@ class AuthorsAdapter {
     return fetch(this.baseUrl).then(response => response.json())
   }
 
+  createDBAuthor(name) {
+    const author = {
+      body: name,
+    }
+    return fetch(this.baseUrl, {
+      method: 'POST',
+      body: JSON.stringify({ author }),
+      headers: { "content-type": "application/json" }
+    })
+  }
+
 }
 
 class Authors {
   constructor() {
     this.adapter = new AuthorsAdapter()
-    this.bindEventListeners()
+    // this.bindEventListeners()
     this.fetchAndLoadAuthors()
   }
+
+    // bindEventListeners() {
+    //
+    // }
 
   fetchAndLoadAuthors() {
     this.adapter
@@ -47,15 +51,22 @@ class Authors {
     $("#authors_index_container").append(`<tr><td>${author["name"]}</td><td>${author["books"].length}</td></tr>`)
   )}
 
-  bindEventListeners() {
+  // createNewAuthor(e) {
+  //   e.preventDefault();
+  //   const form_input = this.formInput;
+  //   this.adapter.createDBAuthor(form_input).then(author => console.log(author))
+  //   // this.renderAuthors()
+  // }
+  createNewAuthor() {
     $(document).ready(function() {
-      $(".new_author input").on("click", function(e) {
+      $("#new_author").on("submit", function(e) {
         e.preventDefault();
-        const form_input = $("#author_name").val();
-        console.log(form_input);
-      });
-    });
+        formInput = $("#author_name").val();
+        this.adapter.createDBAuthor(form_input).then(author => console.log(author))
+      })
+    })
   }
+
 
 
 }
