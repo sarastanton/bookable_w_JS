@@ -19,9 +19,11 @@ class SessionsController < ApplicationController
   def create
     if params[:user] != nil #user logs in with existing Bookable account
       @user = User.find_by(username: params[:user][:username])
-      if @user
+      if !!@user
         login_with_bookable(@user)
       else
+        @user = User.new
+        @user.errors[:base] << "Invalid username and/or password"
         render 'login'
       end
     else #user logs in with Goodreads
