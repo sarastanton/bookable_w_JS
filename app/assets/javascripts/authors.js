@@ -62,9 +62,11 @@ $(document).ready(function() {
     }
 
     renderAuthors() {
-      const authorString = this.authors.sort().map(author => author.renderTr()).join('');
-      $("#authors_index_container").html() = authorString
-      );
+      const sortedAuthors = this.authors.sort((a, b) => a.name - b.name)
+      const authorString = sortedAuthors.map(author => author.renderTr()).join('');
+      debugger
+      $("#authors_index_container").html(authorString)
+      debugger
     }
 
     createNewAuthor() {
@@ -79,7 +81,6 @@ $(document).ready(function() {
       .then(author => {
         this.authors.push(new Author(author));
         $("#author_name").val("");
-        $("#authors_index_container").empty();
         this.renderAuthors()
     });
     }
