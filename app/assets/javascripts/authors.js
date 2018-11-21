@@ -24,7 +24,7 @@ $(document).ready(function() {
         method: 'POST',
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ author }),
-      })
+      }).then(response => response.json())
     }
 
   }
@@ -41,15 +41,10 @@ $(document).ready(function() {
   class Authors {
     constructor() {
       this.adapter = new AuthorsAdapter()
-      // this.bindEventListeners()
       this.fetchAndLoadAuthors()
       this.createNewAuthor()
       this.authors = []
     }
-
-      // bindEventListeners() {
-      //
-      // }
 
     fetchAndLoadAuthors() {
       this.adapter
@@ -63,16 +58,14 @@ $(document).ready(function() {
     }
 
     renderAuthors() {
+      $("#author_name").val("");
+      $("#authors_index_container").empty();
       this.authors.sort().forEach(author =>
-      $("#authors_index_container").append(`<tr><td>${author["name"]}</td><td>${author["books"].length}</td></tr>`)
-    )}
+        $("#authors_index_container").append(`<tr><td>${author["name"]}</td><td>${author["books"].length}</td></tr>`)
+      );
+      console.log("I ran!")
+    }
 
-    // createNewAuthor(e) {
-    //   e.preventDefault();
-    //   const form_input = this.formInput;
-    //   this.adapter.createDBAuthor(form_input).then(author => console.log(author))
-    //   // this.renderAuthors()
-    // }
     createNewAuthor() {
       $("#new_author").on("submit", this.submitAuthorRequest.bind(this))
     }
@@ -82,13 +75,10 @@ $(document).ready(function() {
       const formInput = $("#author_name").val();
       this.adapter
       .createDBAuthor(formInput)
-      .then(response => response.json())
       .then(author => {
         this.authors.push(new Author(author));
-        $("#author_name").empty();
-        $("#authors_index_container").empty();
+      });
       this.renderAuthors()
-    });
     }
 
   }
