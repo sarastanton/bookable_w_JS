@@ -23,7 +23,7 @@ class AuthorsController < ApplicationController
         format.json { render json: @author, status: 200 }
       end
     else
-      render 'new'
+      render 'index'
     end
   end
 

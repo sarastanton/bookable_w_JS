@@ -36,6 +36,10 @@ $(document).ready(function() {
       this.books = authorJSON.books
       this.genres = authorJSON.genres
     }
+
+    renderTr() {
+      return `<tr><td>${this.name}</td><td>${this.books.length}</td></tr>`
+    }
   }
 
   class Authors {
@@ -58,10 +62,9 @@ $(document).ready(function() {
     }
 
     renderAuthors() {
-      this.authors.sort().forEach(author =>
-        $("#authors_index_container").append(`<tr><td>${author["name"]}</td><td>${author["books"].length}</td></tr>`)
+      const authorString = this.authors.sort().map(author => author.renderTr()).join('');
+      $("#authors_index_container").html() = authorString
       );
-      console.log("I ran!")
     }
 
     createNewAuthor() {
