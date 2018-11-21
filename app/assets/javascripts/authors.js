@@ -18,15 +18,24 @@ $(document).ready(function() {
 
     createDBAuthor(name) {
       const author = {
-        body: name,
+        name: name,
       }
       return fetch(this.baseUrl, {
         method: 'POST',
+        headers: { "content-type": "application/json" },
         body: JSON.stringify({ author }),
-        headers: { "content-type": "application/json" }
       })
     }
 
+  }
+
+  class Author {
+    constructor(authorJSON) {
+      this.id = authorJSON.id
+      this.name = authorJSON.name
+      this.books = authorJSON.books
+      this.genres = authorJSON.genres
+    }
   }
 
   class Authors {
@@ -54,8 +63,7 @@ $(document).ready(function() {
     }
 
     renderAuthors() {
-      debugger
-      this.authors.forEach(author =>
+      this.authors.sort().forEach(author =>
       $("#authors_index_container").append(`<tr><td>${author["name"]}</td><td>${author["books"].length}</td></tr>`)
     )}
 
@@ -66,25 +74,26 @@ $(document).ready(function() {
     //   // this.renderAuthors()
     // }
     createNewAuthor() {
-      $("#new_author").on("submit", function(e) {
-        e.preventDefault();
-        formInput = $("#author_name").val();
-        alert(formInput)
-        // this.adapter.createDBAuthor(form_input)
-        // fetchAndLoadAuthors()
-      })
+      $("#new_author").on("submit", this.submitAuthorRequest.bind(this))
+    }
+
+    submitAuthorRequest(e) {
+      e.preventDefault();
+      const formInput = $("#author_name").val();
+      this.adapter
+      .createDBAuthor(formInput)
+      .then(response => response.json())
+      .then(author => {
+        this.authors.push(new Author(author));
+        $("#author_name").empty();
+        $("#authors_index_container").empty();
+      this.renderAuthors()
+    });
     }
 
   }
 
-  class Author {
-    constructor(authorJSON) {
-      this.id = authorJSON.id
-      this.name = authorJSON.name
-      this.books = authorJSON.books
-      this.genres = authorJSON.genres
-    }
-  }
+
 
   const authorsApp = new AuthorsApp()
 

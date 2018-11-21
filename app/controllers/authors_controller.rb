@@ -4,6 +4,8 @@ class AuthorsController < ApplicationController
   before_action :require_login
   before_action :find_author_in_params
   skip_before_action :find_author_in_params, only: [:new, :create]
+  protect_from_forgery with: :null_session
+
 
   # def new
   #   @author = Author.new
