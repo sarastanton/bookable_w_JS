@@ -9,9 +9,14 @@ module SessionsHelper
 		end
 	end
 
-  def login_with_bookable
-    @user = User.find_by(username: params[:user][:username])
-    render 'login' unless @user.authenticate(params[:user][:password])
+  def login_with_bookable(user)
+    if user.authenticate(params[:user][:password])
+      session[:user_id] = @user.id
+      redirect_to root_path
+    else
+      @user.errors[:base] << "Invalid username and/or password"
+      render 'login'
+    end
   end
 
    def login_with_goodreads

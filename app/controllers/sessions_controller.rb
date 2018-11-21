@@ -18,12 +18,20 @@ class SessionsController < ApplicationController
 
   def create
     if params[:user] != nil #user logs in with existing Bookable account
-      login_with_bookable
+      @user = User.find_by(username: params[:user][:username])
+      if @user
+        login_with_bookable(@user)
+      else
+        render 'login'
+      end
     else #user logs in with Goodreads
-      login_with_goodreads
+      if !!login_with_goodreads
+        session[:user_id] = @user.id
+        redirect_to root_path
+      else
+        render 'login'
+      end
     end
-    session[:user_id] = @user.id
-    redirect_to root_path
   end
 
   def destroy
