@@ -58,8 +58,6 @@ $(document).ready(function() {
     }
 
     renderAuthors() {
-      $("#author_name").val("");
-      $("#authors_index_container").empty();
       this.authors.sort().forEach(author =>
         $("#authors_index_container").append(`<tr><td>${author["name"]}</td><td>${author["books"].length}</td></tr>`)
       );
@@ -70,15 +68,17 @@ $(document).ready(function() {
       $("#new_author").on("submit", this.submitAuthorRequest.bind(this))
     }
 
-    submitAuthorRequest(e) {
-      e.preventDefault();
+    submitAuthorRequest(event) {
+      event.preventDefault();
       const formInput = $("#author_name").val();
       this.adapter
       .createDBAuthor(formInput)
       .then(author => {
         this.authors.push(new Author(author));
-      });
-      this.renderAuthors()
+        $("#author_name").val("");
+        $("#authors_index_container").empty();
+        this.renderAuthors()
+    });
     }
 
   }
