@@ -28,7 +28,9 @@ class AuthorsController < ApplicationController
   end
 
   def index
-    @authors = Author.all.sort_by(&:name)
+    @authors = Author.all
+    # @authors = Author.all.sort_by(&:name)
+
     @author = Author.new
     respond_to do |format|
       format.html { render :index }
@@ -43,12 +45,12 @@ class AuthorsController < ApplicationController
     end
   end
 
-  def edit
-    respond_to do |format|
-      format.html { render :edit }
-      format.json { render json: @author, status: 200 }
-    end
-  end
+  # def edit
+  #   respond_to do |format|
+  #     format.html { render :edit }
+  #     format.json { render json: @author, status: 200 }
+  #   end
+  # end
 
   def update
     if @author.update(author_params)
@@ -57,10 +59,10 @@ class AuthorsController < ApplicationController
     render json: @author, status: 200
   end
 
-  def destroy
-    @author.destroy
-    render json: {authorId: @author.id}
-  end
+  # def destroy
+  #   @author.destroy
+  #   render json: {authorId: @author.id}
+  # end
 
   private
 

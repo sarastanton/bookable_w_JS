@@ -18,7 +18,7 @@ $( document ).on('turbolinks:load', function() {
 
     createDBAuthor(name) {
       const author = {
-        name: name,
+        name: name
       }
       return fetch(this.baseUrl, {
         method: 'POST',
@@ -38,7 +38,11 @@ $( document ).on('turbolinks:load', function() {
     }
 
     renderTr() {
-      return `<tr><td>${this.name}</td><td>${this.books.length}</td></tr>`
+      return `<tr><td>${this.name}
+      <a href="#" class="edit" data-id="${this.id}">(edit |</a>
+        <a href="#" class="delete" data-id="${this.id}"> delete)</a></td>
+        <td>${this.books.length}</td>
+      </tr>`
     }
   }
 
@@ -62,16 +66,17 @@ $( document ).on('turbolinks:load', function() {
     }
 
     renderAuthors() {
-      const sortedAuthors = this.authors.sort((a, b) => a.name - b.name)
+      const sortedAuthors = this.authors.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0))
       const authorString = sortedAuthors.map(author => author.renderTr()).join('');
       $("#authors_index_container").html(authorString)
     }
 
-    createNewAuthor() {
-      $("#new_author").on("submit", this.submitAuthorRequest.bind(this))
+    listeners() {
+      $("#new_author").on("submit", this.submitAuthorRequest.bind(this));
+      $()
     }
 
-    submitAuthorRequest(event) {
+    createNewAuthor(event) {
       event.preventDefault();
       const formInput = $("#author_name").val();
       this.adapter
@@ -86,5 +91,5 @@ $( document ).on('turbolinks:load', function() {
   }
 
   const authorsApp = new AuthorsApp()
-  
+
 })
