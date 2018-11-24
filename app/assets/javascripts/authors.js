@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$( document ).on('turbolinks:load', function() {
 
   class AuthorsApp {
     constructor() {
@@ -64,9 +64,7 @@ $(document).ready(function() {
     renderAuthors() {
       const sortedAuthors = this.authors.sort((a, b) => a.name - b.name)
       const authorString = sortedAuthors.map(author => author.renderTr()).join('');
-      debugger
       $("#authors_index_container").html(authorString)
-      debugger
     }
 
     createNewAuthor() {
@@ -87,8 +85,6 @@ $(document).ready(function() {
 
   }
 
-
-
   const authorsApp = new AuthorsApp()
-
+  
 })
