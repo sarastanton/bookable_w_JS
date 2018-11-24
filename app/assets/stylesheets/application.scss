@@ -25,15 +25,18 @@
  }
 
  .table {
-   width: 100%;
+   width: 80%;
    max-width: 100%;
    margin-bottom: 20px;
+   // margin-left: auto;
+   // margin-right: auto;
    background-color: transparent;
    border-collapse: collapse;
    border-spacing: 0;
    box-sizing: border-box;
    display: table;
    border-color: grey;
+   padding: 15px;
  }
 
 .navbar {

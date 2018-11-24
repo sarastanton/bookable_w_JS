@@ -38,8 +38,8 @@ $( document ).on('turbolinks:load', function() {
     }
 
     renderTr() {
-      return `<tr><td>${this.name}
-      <a href="#" class="edit" data-id="${this.id}">(edit |</a>
+      return `<tr><td>${this.name}</td>
+      <td><a href="" class="edit" data-id="${this.id}">(edit |</a>
         <a href="#" class="delete" data-id="${this.id}"> delete)</a></td>
         <td>${this.books.length}</td>
       </tr>`
@@ -50,7 +50,7 @@ $( document ).on('turbolinks:load', function() {
     constructor() {
       this.adapter = new AuthorsAdapter()
       this.fetchAndLoadAuthors()
-      this.createNewAuthor()
+      this.listeners()
       this.authors = []
     }
 
@@ -67,13 +67,16 @@ $( document ).on('turbolinks:load', function() {
 
     renderAuthors() {
       const sortedAuthors = this.authors.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0))
+      const tableHeader = `<th>Author</th> <th>Edit/Delete</th> <th>Number of Books</th>`
       const authorString = sortedAuthors.map(author => author.renderTr()).join('');
-      $("#authors_index_container").html(authorString)
+      const tableContents = tableHeader + authorString
+      debugger
+      $("#authors_index_container").html(tableContents)
     }
 
     listeners() {
-      $("#new_author").on("submit", this.submitAuthorRequest.bind(this));
-      $()
+      $("#new_author").on("submit", this.createNewAuthor.bind(this));
+      $(".edit").on("click", this.editAuthor.bind(this));
     }
 
     createNewAuthor(event) {
@@ -85,7 +88,17 @@ $( document ).on('turbolinks:load', function() {
         this.authors.push(new Author(author));
         $("#author_name").val("");
         this.renderAuthors()
-    });
+      });
+    }
+
+    editAuthor(event) {
+      event.preventDefault();
+      alert("Click!")
+      // console.log(this.id)
+      $(".edit").on("click", function(e) {
+      e.preventDefault;
+      alert("click!")
+})
     }
 
   }
