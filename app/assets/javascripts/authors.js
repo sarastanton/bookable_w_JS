@@ -68,12 +68,14 @@ $( document ).on('turbolinks:load', function() {
 
     renderAuthors() {
       const authorArea = $("#authors_index_container")
+      const tableHeader = `<th>Author</th> <th>Options</th> <th>Number of Books</th>`
       const sortedAuthors = this.authors.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0))
-      sortedAuthors.forEach(author => authorArea.append(this.renderTr(author)))
-      // sortedAuthors.map(author => author.renderTr()).join('');
-      // const tableContents = jQuery.parseHTML(tableHeader + authorString)
+      const authorString = sortedAuthors.map(author => this.renderTr(author)).join('');
+      const tableContents = jQuery.parseHTML(tableHeader + authorString)
+      // sortedAuthors.forEach(author => authorArea.append(this.renderTr(author)))
       // debugger
-      // $("#authors_index_container").html(tableContents)
+      $("#authors_index_container").html(tableHeader);
+      $("#authors_index_container").append(authorString);
     }
 
     listeners() {
@@ -84,15 +86,13 @@ $( document ).on('turbolinks:load', function() {
     createNewAuthor(event) {
       event.preventDefault();
       const formInput = $("#author_name").val();
-      const tableHeader = `<th>Author</th> <th>Edit/Delete</th> <th>Number of Books</th>`
       this.adapter
       .createDBAuthor(formInput)
       .then(author => {
         this.authors.push(new Author(author));
-
         $("#author_name").val("");
-        $("#authors_index_container").empty();
-        $("#authors_index_container").append(tableHeader);
+        // $("#authors_index_container").empty();
+        // $("#authors_index_container").append(tableHeader);
         this.renderAuthors()
       });
     }
