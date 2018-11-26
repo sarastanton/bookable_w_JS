@@ -60,8 +60,9 @@ $( document ).on('turbolinks:load', function() {
 
     renderTr(author) {
       return `<tr><td>${author.name}</td>
-      <td><a href="" class="edit" data-id="${author.id}">(edit |</a>
-        <a href="#" class="delete" data-id="${author.id}"> delete)</a></td>
+      <td><a href="#" class="edit" data-id="${author.id}">(edit</a>
+         |
+        <a href="#" class="delete" data-id="${author.id}">delete)</a></td>
         <td>${author.books.length}</td>
       </tr>`
     }
@@ -71,16 +72,14 @@ $( document ).on('turbolinks:load', function() {
       const tableHeader = `<th>Author</th> <th>Options</th> <th>Number of Books</th>`
       const sortedAuthors = this.authors.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0))
       const authorString = sortedAuthors.map(author => this.renderTr(author)).join('');
-      const tableContents = jQuery.parseHTML(tableHeader + authorString)
-      // sortedAuthors.forEach(author => authorArea.append(this.renderTr(author)))
-      // debugger
+      const tableContents = jQuery.parseHTML(tableHeader + authorString);
       $("#authors_index_container").html(tableHeader);
       $("#authors_index_container").append(authorString);
     }
 
     listeners() {
       $("#new_author").on("submit", this.createNewAuthor.bind(this));
-      $(".edit").on("click", this.editAuthor.bind(this));
+      $(document).on("click", "a.edit:contains('edit')", this.editAuthor);
     }
 
     createNewAuthor(event) {
@@ -91,20 +90,16 @@ $( document ).on('turbolinks:load', function() {
       .then(author => {
         this.authors.push(new Author(author));
         $("#author_name").val("");
-        // $("#authors_index_container").empty();
-        // $("#authors_index_container").append(tableHeader);
         this.renderAuthors()
       });
     }
 
     editAuthor(event) {
       event.preventDefault();
-      alert("Click!")
-      // console.log(this.id)
-      $(".edit").on("click", function(e) {
-      e.preventDefault;
-      alert("click!")
-})
+      console.log(this.dataset.id)
+      // $(".edit").on("click", function(e) {
+      // e.preventDefault;
+      // alert("click!")
     }
 
   }
