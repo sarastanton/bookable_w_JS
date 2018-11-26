@@ -37,13 +37,6 @@ $( document ).on('turbolinks:load', function() {
       this.genres = authorJSON.genres
     }
 
-    renderTr() {
-      return `<tr><td>${this.name}</td>
-      <td><a href="" class="edit" data-id="${this.id}">(edit |</a>
-        <a href="#" class="delete" data-id="${this.id}"> delete)</a></td>
-        <td>${this.books.length}</td>
-      </tr>`
-    }
   }
 
   class Authors {
@@ -65,13 +58,22 @@ $( document ).on('turbolinks:load', function() {
       })
     }
 
+    renderTr(author) {
+      return `<tr><td>${author.name}</td>
+      <td><a href="" class="edit" data-id="${author.id}">(edit |</a>
+        <a href="#" class="delete" data-id="${author.id}"> delete)</a></td>
+        <td>${author.books.length}</td>
+      </tr>`
+    }
+
     renderAuthors() {
+      const authorArea = $("#authors_index_container")
       const sortedAuthors = this.authors.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0))
-      const tableHeader = `<th>Author</th> <th>Edit/Delete</th> <th>Number of Books</th>`
-      const authorString = sortedAuthors.map(author => author.renderTr()).join('');
-      const tableContents = tableHeader + authorString
-      debugger
-      $("#authors_index_container").html(tableContents)
+      sortedAuthors.forEach(author => authorArea.append(this.renderTr(author)))
+      // sortedAuthors.map(author => author.renderTr()).join('');
+      // const tableContents = jQuery.parseHTML(tableHeader + authorString)
+      // debugger
+      // $("#authors_index_container").html(tableContents)
     }
 
     listeners() {
@@ -82,11 +84,15 @@ $( document ).on('turbolinks:load', function() {
     createNewAuthor(event) {
       event.preventDefault();
       const formInput = $("#author_name").val();
+      const tableHeader = `<th>Author</th> <th>Edit/Delete</th> <th>Number of Books</th>`
       this.adapter
       .createDBAuthor(formInput)
       .then(author => {
         this.authors.push(new Author(author));
+
         $("#author_name").val("");
+        $("#authors_index_container").empty();
+        $("#authors_index_container").append(tableHeader);
         this.renderAuthors()
       });
     }
@@ -106,3 +112,28 @@ $( document ).on('turbolinks:load', function() {
   const authorsApp = new AuthorsApp()
 
 })
+
+
+//     this.notesContainer.addEventListener('dblclick', this.handleNoteClick.bind(this))
+    // this.body.addEventListener('blur', this.updateNote.bind(this), true)
+
+//     handleNoteClick(e) {
+//   this.toggleNote(e)
+// }
+//
+// toggleNote(e) {
+//   const li = e.target
+//   li.contentEditable = true
+//   li.focus()
+//   li.classList.add('editable')
+// }
+//
+// updateNote(e) {
+//   const li = e.target
+//   li.contentEditable = false
+//   li.classList.remove('editable')
+//   const newValue = li.innerHTML
+//   const id = li.dataset.id
+//   //console.log(id)
+//   this.adapter.updateNote(newValue, id)
+// }
