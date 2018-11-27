@@ -79,7 +79,7 @@ $( document ).on('turbolinks:load', function() {
 
     listeners() {
       $("#new_author").on("submit", this.createNewAuthor.bind(this));
-      $(document).on("click", "a.edit:contains('edit')", this.editAuthor);
+      $(document).on("click", "a.edit:contains('edit')", this.editAuthor.bind(this));
     }
 
     createNewAuthor(event) {
@@ -95,11 +95,18 @@ $( document ).on('turbolinks:load', function() {
     }
 
     editAuthor(event) {
+      const authorsById = this.authors.sort((a,b) => (a.id - b.id))
+      const oldName = event.target.parentElement.parentElement.firstElementChild;
+
       event.preventDefault();
-      console.log(this.dataset.id)
-      // $(".edit").on("click", function(e) {
-      // e.preventDefault;
-      // alert("click!")
+      // console.log(event.target.dataset.id)
+      // console.log(authorsById[event.target.dataset.id-1])
+      // console.log(event.target)
+      // debugger
+
+      oldName.contentEditable="true"
+      oldName.classList.add('editable')
+
     }
 
   }
@@ -109,13 +116,6 @@ $( document ).on('turbolinks:load', function() {
 })
 
 
-//     this.notesContainer.addEventListener('dblclick', this.handleNoteClick.bind(this))
-    // this.body.addEventListener('blur', this.updateNote.bind(this), true)
-
-//     handleNoteClick(e) {
-//   this.toggleNote(e)
-// }
-//
 // toggleNote(e) {
 //   const li = e.target
 //   li.contentEditable = true
