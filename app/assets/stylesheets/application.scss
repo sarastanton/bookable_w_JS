@@ -137,8 +137,12 @@
  color: red;
 }
 
-.editable {
-  
+#editable {
+  border-top: 1px solid red;
+  border-style: solid;
+  border-width: thin;
+  background-color: white;
+  border-color: red;
 }
 
 .field_with_errors input[type="text"] {

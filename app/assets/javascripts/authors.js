@@ -105,7 +105,7 @@ $( document ).on('turbolinks:load', function() {
       // debugger
 
       oldName.contentEditable="true"
-      oldName.classList.add('editable')
+      oldName.setAttribute('id', 'editable')
 
     }
 
