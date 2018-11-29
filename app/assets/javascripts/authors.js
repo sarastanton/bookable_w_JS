@@ -38,6 +38,17 @@ $( document ).on('turbolinks:load', function() {
       }).then(response => response.json())
     }
 
+    deleteDBAuthor(id) {
+      // const author = {
+      //   name: newName
+      // }
+      return fetch(`${this.baseUrl}/${id}`, {
+        method: 'DELETE',
+        headers: { "content-type": "application/json" },
+        // body: JSON.stringify({ author }),
+      }).then(response => response.json())
+    }
+
   }
 
   class Author {
@@ -92,7 +103,8 @@ $( document ).on('turbolinks:load', function() {
     listeners() {
       const body = document.querySelector('body')
       $("#new_author").on("submit", this.createNewAuthor.bind(this));
-      $(document).on("click", "a.edit:contains('edit')", this.editAuthor.bind(this));
+      $(document).on("click", "a.edit:contains('edit')", this.makeEditable.bind(this));
+      $(document).on("click", "a.edit:contains('delete')", this.deleteAuthor.bind(this));
       body.addEventListener("blur", this.updateAuthor.bind(this), true);
       // $(document).on("blur", this.editAuthor.bind(this));
     }
@@ -109,7 +121,7 @@ $( document ).on('turbolinks:load', function() {
       });
     }
 
-    editAuthor(event) {
+    makeEditable(event) {
       const authorsById = this.authors.sort((a,b) => (a.id - b.id))
       const oldName = event.target.parentElement.parentElement.firstElementChild;
       // debugger
@@ -128,7 +140,19 @@ $( document ).on('turbolinks:load', function() {
       oldName.contentEditable="false"
       oldName.classList.remove('editable')
       this.adapter.updateDBAuthor(newName, authorId)
-      // console.log(newName, authorId)
+      .then(author => {
+        this.authors.push(new Author(author));
+        this.renderAuthors()
+      });
+    }
+    //
+    deleteAuthor() {
+      event.preventDefault();
+      // const authorId = event.target.parentElement.children[1].firstElementChild.dataset.id
+      debugger
+      // this.adapter.updateDBAuthor(authorId)
+      console.log(authorId)
+      alert("click!")
     }
 
 
