@@ -9,19 +9,30 @@ $( document ).on('turbolinks:load', function() {
   class AuthorsAdapter {
     // connects to API/backend
     constructor() {
-      this.baseUrl = 'http://localhost:3000/authors.json'
+      this.baseUrl = 'http://localhost:3000/authors'
     }
 
     getAuthors() {
-      return fetch(this.baseUrl).then(response => response.json())
+      return fetch(`${this.baseUrl}.json`).then(response => response.json())
     }
 
     createDBAuthor(name) {
       const author = {
         name: name
       }
-      return fetch(this.baseUrl, {
+      return fetch(`${this.baseUrl}.json`, {
         method: 'POST',
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ author }),
+      }).then(response => response.json())
+    }
+
+    updateDBAuthor(newName, id) {
+      const author = {
+        name: newName
+      }
+      return fetch(`${this.baseUrl}/${id}`, {
+        method: 'PATCH',
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ author }),
       }).then(response => response.json())
@@ -45,6 +56,7 @@ $( document ).on('turbolinks:load', function() {
       this.fetchAndLoadAuthors()
       this.listeners()
       this.authors = []
+      // this.body = $(document.body)
     }
 
     fetchAndLoadAuthors() {
@@ -78,8 +90,11 @@ $( document ).on('turbolinks:load', function() {
     }
 
     listeners() {
+      const body = document.querySelector('body')
       $("#new_author").on("submit", this.createNewAuthor.bind(this));
       $(document).on("click", "a.edit:contains('edit')", this.editAuthor.bind(this));
+      body.addEventListener("blur", this.updateAuthor.bind(this), true);
+      // $(document).on("blur", this.editAuthor.bind(this));
     }
 
     createNewAuthor(event) {
@@ -97,39 +112,28 @@ $( document ).on('turbolinks:load', function() {
     editAuthor(event) {
       const authorsById = this.authors.sort((a,b) => (a.id - b.id))
       const oldName = event.target.parentElement.parentElement.firstElementChild;
-
-      event.preventDefault();
-      // console.log(event.target.dataset.id)
-      // console.log(authorsById[event.target.dataset.id-1])
-      // console.log(event.target)
       // debugger
-
+      event.preventDefault();
       oldName.contentEditable="true"
       oldName.classList.add('editable')
       oldName.focus()
-
     }
+
+    updateAuthor() {
+      const oldName = event.target.parentElement.firstElementChild
+      const newName = oldName.innerText
+      const authorId = event.target.parentElement.children[1].firstElementChild.dataset.id
+      // debugger
+      event.preventDefault();
+      oldName.contentEditable="false"
+      oldName.classList.remove('editable')
+      this.adapter.updateDBAuthor(newName, authorId)
+      // console.log(newName, authorId)
+    }
+
 
   }
 
   const authorsApp = new AuthorsApp()
 
 })
-
-
-// toggleNote(e) {
-//   const li = e.target
-//   li.contentEditable = true
-//   li.focus()
-//   li.classList.add('editable')
-// }
-//
-// updateNote(e) {
-//   const li = e.target
-//   li.contentEditable = false
-//   li.classList.remove('editable')
-//   const newValue = li.innerHTML
-//   const id = li.dataset.id
-//   //console.log(id)
-//   this.adapter.updateNote(newValue, id)
-// }
