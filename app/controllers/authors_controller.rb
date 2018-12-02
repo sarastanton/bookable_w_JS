@@ -60,8 +60,12 @@ class AuthorsController < ApplicationController
   end
 
   def destroy
-    @author.destroy
-    render json: {authorId: @author.id}
+    if @author.destroy
+      redirect_to authors_path
+    end
+    render json: @authors, status: 200
+    # render json: {authorId: @author.id}
+    # render json: {authorId: @author.id}
   end
 
   private
