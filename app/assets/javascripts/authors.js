@@ -42,6 +42,7 @@ $( document ).on('turbolinks:load', function() {
       // const author = {
       //   name: newName
       // }
+      debugger
       return fetch(`${this.baseUrl}/${id}`, {
         method: 'DELETE',
         headers: { "content-type": "application/json" },
@@ -67,7 +68,6 @@ $( document ).on('turbolinks:load', function() {
       this.fetchAndLoadAuthors()
       this.listeners()
       this.authors = []
-      // this.body = $(document.body)
     }
 
     fetchAndLoadAuthors() {
@@ -83,9 +83,9 @@ $( document ).on('turbolinks:load', function() {
 
     renderTr(author) {
       return `<tr><td>${author.name}</td>
-      <td><a href="#" class="edit" data-id="${author.id}">(edit</a>
+      <td><a href="" class="edit" data-id="${author.id}">edit</a>
          |
-        <a href="#" class="delete" data-id="${author.id}">delete)</a></td>
+        <a href="" class="delete" data-id="${author.id}">delete</a></td>
         <td>${author.books.length}</td>
       </tr>`
     }
@@ -103,9 +103,17 @@ $( document ).on('turbolinks:load', function() {
     listeners() {
       const body = document.querySelector('body')
       $("#new_author").on("submit", this.createNewAuthor.bind(this));
-      $(document).on("click", "a.edit:contains('edit')", this.makeEditable.bind(this));
-      $(document).on("click", "a.edit:contains('delete')", this.deleteAuthor.bind(this));
-      body.addEventListener("blur", this.updateAuthor.bind(this), true);
+      // $(document).on("click", body, console.log(event.target))
+      // $(document).on("click", "a.edit:contains('edit')", this.makeEditable.bind(this));
+      $(document).on("click", "a.edit:contains('edit')", this.makeEditable);
+      $(document).on("click", "a.delete:contains('delete')", this.deleteAuthor);
+      // $("a.edit:contains('edit')").on("click", function() {
+      //   debugger
+      // });
+      // $("a.edit").on("click", alert("EDIT"));
+      // $(document).on("click", "a.edit:contains('delete')", this.deleteAuthor.bind(this));
+      // $("a.delete:contains('delete')").on("click", console.log(event.target));
+      // body.addEventListener("blur", this.updateAuthor.bind(this), true);
       // $(document).on("blur", this.editAuthor.bind(this));
     }
 
@@ -122,20 +130,21 @@ $( document ).on('turbolinks:load', function() {
     }
 
     makeEditable(event) {
-      const authorsById = this.authors.sort((a,b) => (a.id - b.id))
-      const oldName = event.target.parentElement.parentElement.firstElementChild;
+      // const authorsById = this.authors.sort((a,b) => (a.id - b.id))
+      // const oldName = event.target.parentElement.parentElement.firstElementChild;
       // debugger
       event.preventDefault();
-      oldName.contentEditable="true"
-      oldName.classList.add('editable')
-      oldName.focus()
+      // oldName.contentEditable="true"
+      // oldName.classList.add('editable')
+      // oldName.focus()
+      alert("Edit!")
     }
 
     updateAuthor() {
       const oldName = event.target.parentElement.firstElementChild
       const newName = oldName.innerText
       const authorId = event.target.parentElement.children[1].firstElementChild.dataset.id
-      // debugger
+      debugger
       event.preventDefault();
       oldName.contentEditable="false"
       oldName.classList.remove('editable')
@@ -149,10 +158,10 @@ $( document ).on('turbolinks:load', function() {
     deleteAuthor() {
       event.preventDefault();
       // const authorId = event.target.parentElement.children[1].firstElementChild.dataset.id
-      debugger
+      // debugger
       // this.adapter.updateDBAuthor(authorId)
-      console.log(authorId)
-      alert("click!")
+      // console.log(authorId)
+      alert("delete!")
     }
 
 
