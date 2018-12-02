@@ -60,7 +60,7 @@ class AuthorsController < ApplicationController
   def destroy
     @author.destroy
     @authors = Author.all
-    render json: @authors, status: 200
+    render json: {authorId: @author.id}
   end
 
   private

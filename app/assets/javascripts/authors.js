@@ -160,9 +160,13 @@ $( document ).on('turbolinks:load', function() {
       const authorId = event.target.dataset.id
       // debugger
       this.adapter.deleteDBAuthor(authorId)
-      // .then(authors => {
-      this.fetchAndLoadAuthors()
-      // });
+      .then(author => {
+        this.authors = [];
+        this.fetchAndLoadAuthors()
+      //   this.authors.splice(author);
+      //   debugger;
+      //   this.renderAuthors()
+      });
     }
 
 
