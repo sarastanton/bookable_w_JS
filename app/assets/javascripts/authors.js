@@ -95,8 +95,9 @@ $( document ).on('turbolinks:load', function() {
       const sortedAuthors = this.authors.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0))
       const authorString = sortedAuthors.map(author => this.renderTr(author)).join('');
       const tableContents = jQuery.parseHTML(tableHeader + authorString);
-      $("#authors_index_container").html(tableHeader);
-      $("#authors_index_container").append(authorString);
+      authorArea.empty();
+      authorArea.html(tableHeader);
+      authorArea.append(authorString);
     }
 
     listeners() {
@@ -125,7 +126,7 @@ $( document ).on('turbolinks:load', function() {
       event.preventDefault();
       const authorsById = this.authors.sort((a,b) => (a.id - b.id))
       const oldName = event.target.parentElement.parentElement.firstElementChild;
-      event.target.innerHTML = "<strong>SAVE?</strong>"
+      event.target.innerHTML = "SAVE?"
       oldName.contentEditable="true"
       oldName.classList.add('editable')
       event.target.classList.add('save')
@@ -136,17 +137,20 @@ $( document ).on('turbolinks:load', function() {
     updateAuthor() {
       event.preventDefault();
       // alert("update!")
-      debugger
-      const oldName = event.target.parentElement.parentElement.parentElement.children[0]
+      // debugger
+      const oldName = event.target.parentElement.parentElement.children[0]
       const newName = oldName.innerText
-      const authorId = event.target.parentElement.dataset.id
+      const authorId = event.target.dataset.id
       oldName.contentEditable="false"
       oldName.classList.remove('editable')
+      event.target.classList.remove('save')
+      event.target.innerText = "edit"
       // debugger
       this.adapter.updateDBAuthor(newName, authorId)
       .then(author => {
+        // debugger
         this.authors.push(new Author(author));
-        this.renderAuthors()
+        // this.renderAuthors()
       });
     }
     //
@@ -156,8 +160,9 @@ $( document ).on('turbolinks:load', function() {
       const authorId = event.target.dataset.id
       // debugger
       this.adapter.deleteDBAuthor(authorId)
-      // console.log(authorId)
-      // alert("delete!" + this)
+      // .then(authors => {
+      this.fetchAndLoadAuthors()
+      // });
     }
 
 

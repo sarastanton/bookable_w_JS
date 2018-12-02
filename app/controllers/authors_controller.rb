@@ -53,19 +53,14 @@ class AuthorsController < ApplicationController
   # end
 
   def update
-    if @author.update(author_params)
-      redirect_to author_path(@author)
-    end
+    @author.update(author_params)
     render json: @author, status: 200
   end
 
   def destroy
-    if @author.destroy
-      redirect_to authors_path
-    end
+    @author.destroy
+    @authors = Author.all
     render json: @authors, status: 200
-    # render json: {authorId: @author.id}
-    # render json: {authorId: @author.id}
   end
 
   private
