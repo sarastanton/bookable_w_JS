@@ -7,14 +7,6 @@ class AuthorsController < ApplicationController
   protect_from_forgery with: :null_session
 
 
-  # def new
-  #   @author = Author.new
-  #   respond_to do |format|
-  #     format.html { render :new }
-  #     format.json { render json: @author, status: 200 }
-  #   end
-  # end
-
   def create
     @author = Author.create(author_params)
     if @author.save
@@ -29,8 +21,6 @@ class AuthorsController < ApplicationController
 
   def index
     @authors = Author.all
-    # @authors = Author.all.sort_by(&:name)
-
     @author = Author.new
     respond_to do |format|
       format.html { render :index }
@@ -44,13 +34,6 @@ class AuthorsController < ApplicationController
       format.json { render json: @author, status: 200 }
     end
   end
-
-  # def edit
-  #   respond_to do |format|
-  #     format.html { render :edit }
-  #     format.json { render json: @author, status: 200 }
-  #   end
-  # end
 
   def update
     @author.update(author_params)
