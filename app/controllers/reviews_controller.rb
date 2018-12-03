@@ -26,6 +26,7 @@ class ReviewsController < ApplicationController
   end
 
   def index
+    @review = Review.new(book_id: params[:book_id], user_id: helpers.current_user.id)
     @reviews = Review.where(book_id: params[:book_id])
     respond_to do |format|
       format.html { render :index }
