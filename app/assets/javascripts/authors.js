@@ -98,7 +98,7 @@ $( document ).on('turbolinks:load', function() {
     }
 
     listeners() {
-      const body = document.querySelector('body');
+      // const body = document.querySelector('body');
       $("#new_author").on("submit", this.createNewAuthor.bind(this));
       $(document).on("click", "a.edit:contains('edit')", this.makeEditable.bind(this));
       $(document).on("click", "a.delete:contains('delete')", this.deleteAuthor.bind(this));
