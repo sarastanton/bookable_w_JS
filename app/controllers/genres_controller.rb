@@ -6,11 +6,6 @@ class GenresController < ApplicationController
   skip_before_action :find_genre_in_params, only: [:new, :create]
   protect_from_forgery with: :null_session
 
-  # def new
-  #   @genre = Genre.new
-  #   render json: @genre, status: 200
-  # end
-
   def create
     @genre = Genre.create(genre_params)
     if @genre.save
@@ -32,12 +27,8 @@ class GenresController < ApplicationController
     end
   end
 
-  # def show
-  #   respond_to do |format|
-  #     format.html { render :show }
-  #     format.json { render json: @genre, status: 200 }
-  #   end
-  # end
+  def show
+  end
 
   def update
     @genre.update(genre_params)

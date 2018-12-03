@@ -63,6 +63,7 @@ $( document ).on('turbolinks:load', function() {
       this.fetchAndLoadAuthors();
       this.listeners();
       this.authors = [];
+      this.baseUrl = 'http://localhost:3000/authors';
     }
 
     fetchAndLoadAuthors() {
@@ -77,7 +78,7 @@ $( document ).on('turbolinks:load', function() {
     }
 
     renderTr(author) {
-      return `<tr><td>${author.name}</td>
+      return `<tr><td><a href="${this.baseUrl}/${author.id}">${author.name}</a></td>
       <td><a href="" class="edit" data-id="${author.id}">edit</a>
          |
         <a href="" class="delete" data-id="${author.id}">delete</a></td>

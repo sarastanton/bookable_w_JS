@@ -63,6 +63,7 @@ $( document ).on('turbolinks:load', function() {
       this.fetchAndLoadGenres();
       this.listeners();
       this.genres = [];
+      this.baseUrl = 'http://localhost:3000/genres';
     }
 
     fetchAndLoadGenres() {
@@ -77,7 +78,7 @@ $( document ).on('turbolinks:load', function() {
     }
 
     renderTr(genre) {
-      return `<tr><td>${genre.name}</td>
+      return `<tr><td><a href="${this.baseUrl}/${genre.id}">${genre.name}</a></td>
       <td><a href="" class="edit" data-id="${genre.id}">edit</a>
          |
         <a href="" class="delete" data-id="${genre.id}">delete</a></td>

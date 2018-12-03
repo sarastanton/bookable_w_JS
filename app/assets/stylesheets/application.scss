@@ -15,37 +15,45 @@
  */
 
 
- @import "bootstrap-sprockets";
- @import "bootstrap";
+@import "bootstrap-sprockets";
+@import "bootstrap";
 
- body:not(.button_to) {
-   padding-top: 70px;
-   padding-bottom: 30px;
-   background-color: rgb(243, 241, 235)
- }
+body:not(.button_to) {
+  padding-top: 70px;
+  padding-bottom: 30px;
+  background-color: rgb(243, 241, 235)
+}
 
- .table {
-   width: 80%;
-   max-width: 100%;
-   margin-bottom: 20px;
-   // margin-left: auto;
-   // margin-right: auto;
-   background-color: transparent;
-   border-collapse: collapse;
-   border-spacing: 0;
-   box-sizing: border-box;
-   display: table;
-   border-color: grey;
-   padding: 15px;
- }
+.save {
+  font-weight: bold;
+}
 
- th {
-   padding-left: 8px;
- }
+.save a:visited {
+  color: green;
+}
+
+.table {
+  width: 80%;
+  max-width: 100%;
+  margin-bottom: 20px;
+  // margin-left: auto;
+  // margin-right: auto;
+  background-color: transparent;
+  border-collapse: collapse;
+  border-spacing: 0;
+  box-sizing: border-box;
+  display: table;
+  border-color: grey;
+  padding: 15px;
+}
+
+th {
+  padding-left: 8px;
+}
 
 .navbar {
-   background-color: rgb(52, 35, 22);
-   font: rgb(249, 247, 244);
+  background-color: rgb(52, 35, 22);
+  font: rgb(249, 247, 244);
 }
 
 .navbar:hover {
@@ -59,7 +67,6 @@
   font-size: 20px;
 }
 
-
 .navbar-brand a:visited {
   color: #9d9d9d;
   text-decoration: none;
@@ -69,79 +76,75 @@
 
 .navbar-inverse .navbar-brand a:hover,
 .navbar-inverse .navbar-brand:focus {
-   background-color: rgb(249,247,244);
-   color: rgb(52, 35, 22)
+  background-color: rgb(249,247,244);
+  color: rgb(52, 35, 22)
 }
 
- a {
-   color: rgb(52, 35, 22);
-   text-decoration: underline;
- }
+a {
+  color: rgb(52, 35, 22);
+  text-decoration: underline;
+}
 
- a:active {
-   color: rgb(52, 35, 22);
- }
+a:active {
+  color: rgb(52, 35, 22);
+}
 
- a:visited {
-   color: rgb(52, 35, 22);
- }
+a:visited {
+  color: rgb(52, 35, 22);
+}
 
- a:hover {
-   color: rgb(52, 35, 22);
- }
+a:hover {
+  color: rgb(52, 35, 22);
+}
 
- .theme-dropdown .dropdown-menu {
-   position: static;
-   display: block;
-   margin-bottom: 20px;
- }
+.theme-dropdown .dropdown-menu {
+  position: static;
+  display: block;
+  margin-bottom: 20px;
+}
 
- .theme-showcase > p > .btn {
-   margin: 5px 0;
- }
+.theme-showcase > p > .btn {
+  margin: 5px 0;
+}
 
- .center {
-   text-align: center;
- }
+.center {
+  text-align: center;
+}
 
- .pic,
- .info {
-   padding: 20px;
-   display: inline-block;
-   background-color: #eeeeee;
-   border-radius: 7px;
-   vertical-align: middle;
-   margin: 10px;
- }
+.pic,
+.info {
+  padding: 20px;
+  display: inline-block;
+  background-color: #eeeeee;
+  border-radius: 7px;
+  vertical-align: middle;
+  margin: 10px;
+}
 
- .info {
-   height: 290px;
-   text-align: left;
- }
+.info {
+  height: 290px;
+  text-align: left;
+}
 
 
- h1,
- h2,
- h3,
- h4,
- h5,
- h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   color: rgb(52, 35, 22);
 }
 
 .error_message {
- color: red;
+  color: red;
 }
 
 .error_message h3 {
- color: red;
+  color: red;
 }
 
 .editable {
-  // border-top: 1px solid red;
-  // border-style: solid;
-  // border-width: thin;
-  // border-color: red;
   background-color: white;
 }
 
@@ -171,9 +174,4 @@
 .login_status a:hover {
   background-color: rgb(249,247,244);
   color: rgb(52, 35, 22)
-}
-
-.save {
-  font-weight: bold;
-  color: green;
 }
