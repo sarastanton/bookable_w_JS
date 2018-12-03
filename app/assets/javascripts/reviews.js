@@ -87,13 +87,13 @@ $( document ).on('turbolinks:load', function() {
     }
 
     renderReviews() {
-      const reviewArea = $("#review_container");
+      // const reviewArea = $("#review_container");
       const sortedReviews = this.reviews.sort((a, b) => a.id - b.id);
       const reviewString = sortedReviews.map(review => this.renderLi(review)).join('');
       // reviewArea.empty();
       // reviewArea.html(tableHeader);
-      reviewArea.innerHTML = reviewString;
-      debugger
+      document.getElementById("review_container").innerHTML = reviewString
+      // debugger
     }
 
     listeners() {
