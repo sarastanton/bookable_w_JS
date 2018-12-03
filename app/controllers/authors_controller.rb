@@ -28,12 +28,12 @@ class AuthorsController < ApplicationController
     end
   end
 
-  def show
-    respond_to do |format|
-      format.html { render :show }
-      format.json { render json: @author, status: 200 }
-    end
-  end
+  # def show
+  #   respond_to do |format|
+  #     format.html { render :show }
+  #     format.json { render json: @author, status: 200 }
+  #   end
+  # end
 
   def update
     @author.update(author_params)

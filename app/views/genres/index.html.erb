@@ -1,18 +1,15 @@
 <h1> All Genres </h1>
 
-<table class="table">
-  <th> Genre </th>
-  <th> Number of Books </th>
-
-  <% @genres.each do |genre| %>
-  <tr>
-    <td> <%= link_to genre.name, genre_path(genre) %> </td>
-    <td> <%= genre.books.count %> </td>
-  </tr>
-  <% end %>
+<table id="genres_index_container" class="table">
+  <!-- <th>Genre</th> <th>Options</th> <th>Number of Books</th> -->
 </table>
 
 <br />
-<br />
 
-<%= button_to "Add New Genre", new_genre_path, :method => :get %>
+<h4> Add a Genre: </h4>
+
+<%= render partial: 'genre_form', locals: {genre: @genre} %>
+
+<br />
+<br />
+<%= render partial: "layouts/errors", locals: {object: @genre} %>
