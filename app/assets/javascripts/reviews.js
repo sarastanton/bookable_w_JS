@@ -83,7 +83,16 @@ $( document ).on('turbolinks:load', function() {
     }
 
     renderLi(review) {
-      return `<li><strong>${review.userName}</strong> wrote: ${review.content}</li>`;
+      let edit_delete_link;
+      if($("#review_user_id").val() == review.userId) {
+        edit_delete_link =
+        `<a href="#" class="edit" data-id="${review.id}">edit</a> | <a href="" class="delete" data-id="${review.id}">delete</a><br />`
+      } else {
+        edit_delete_link = ""
+      };
+        // debugger
+      return `<li><strong>${review.userName}</strong> wrote: ${review.content}</li>${edit_delete_link}<br />`;
+
     }
 
     renderReviews() {
@@ -99,9 +108,9 @@ $( document ).on('turbolinks:load', function() {
     listeners() {
       // const body = document.querySelector('body');
       $("#new_review").on("submit", this.createNewReview.bind(this));
-      // $(document).on("click", "a.edit:contains('edit')", this.makeEditable.bind(this));
-      // $(document).on("click", "a.delete:contains('delete')", this.deleteReview.bind(this));
-      // $(document).on("click", "a:contains('SAVE?')", this.updateReview.bind(this));
+      $(document).on("click", "a.edit:contains('edit')", this.makeEditable.bind(this));
+      $(document).on("click", "a.delete:contains('delete')", this.deleteReview.bind(this));
+      $(document).on("click", "a:contains('SAVE?')", this.updateReview.bind(this));
     }
 
     createNewReview(event) {
@@ -118,8 +127,9 @@ $( document ).on('turbolinks:load', function() {
       });
     }
 
-    // makeEditable(event) {
-    //   event.preventDefault();
+    makeEditable(event) {
+      event.preventDefault();
+      console.log(event.target)
     //   const reviewsById = this.reviews.sort((a,b) => (a.id - b.id));
     //   const oldName = event.target.parentElement.parentElement.firstElementChild;
     //   event.target.innerHTML = "SAVE?";
@@ -127,10 +137,10 @@ $( document ).on('turbolinks:load', function() {
     //   oldName.classList.add('editable');
     //   event.target.classList.add('save');
     //   oldName.focus();
-    // }
+    }
 
-    // updateReview() {
-    //   event.preventDefault();
+    updateReview() {
+      event.preventDefault();
     //   const oldName = event.target.parentElement.parentElement.children[0];
     //   const newName = oldName.innerText;
     //   const reviewId = event.target.dataset.id;
@@ -142,17 +152,18 @@ $( document ).on('turbolinks:load', function() {
     //   .then(review => {
     //     this.reviews.push(new Review(review));
     //   });
-    // }
+    }
 
-    // deleteReview() {
-    //   event.preventDefault();
-    //   const reviewId = event.target.dataset.id;
-    //   this.adapter.deleteDBReview(reviewId)
-    //   .then(review => {
-    //     this.reviews = [];
-    //     this.fetchAndLoadReviews();
-    //   });
-    // }
+    deleteReview() {
+      event.preventDefault();
+      console.log(event.target)
+      const reviewId = event.target.dataset.id;
+      this.adapter.deleteDBReview(reviewId)
+      .then(review => {
+        this.reviews = [];
+        this.fetchAndLoadReviews();
+      });
+    }
 
   }
 

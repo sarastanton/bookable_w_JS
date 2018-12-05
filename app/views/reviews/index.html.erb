@@ -8,12 +8,13 @@
  <% end %>
 
 
-<ul id="review_container">
+<ul id="review_container" class="reviews">
 
 </ul>
 
 <br />
 <h4> Add a review:</h4>
+<p><strong>Note:</strong> Adding a review will also add <%=@book.title%> to your list of books read, if not already there (because how can you review it if you haven't read it?!)</p>
 <br />
 
 <%= render partial: "review_form", locals: {review: @review, book: @book} %>
