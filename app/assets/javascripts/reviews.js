@@ -29,11 +29,12 @@ $( document ).on('turbolinks:load', function() {
       }).then(response => response.json());
     }
 
-    updateDBReview(userId, bookId, newContent, id) {
+    updateDBReview(newContent, id) {
       const review = {
-        user_id: userId,
-        book_id: bookId,
-        content: newContent
+        // user_id: userId,
+        // book_id: bookId,
+        content: newContent,
+        id: id
       };
       return fetch(`${this.baseUrl}/${id}`, {
         method: 'PATCH',
@@ -91,7 +92,7 @@ $( document ).on('turbolinks:load', function() {
         edit_delete_link = ""
       };
         // debugger
-      return `<li><strong>${review.userName}</strong> wrote: ${review.content}</li>${edit_delete_link}<br />`;
+      return `<li><strong>${review.userName}</strong> wrote: <p class="review_content"> ${review.content}</p></li>${edit_delete_link}<br />`;
 
     }
 
@@ -129,29 +130,31 @@ $( document ).on('turbolinks:load', function() {
 
     makeEditable(event) {
       event.preventDefault();
+      // debugger
       console.log(event.target)
-    //   const reviewsById = this.reviews.sort((a,b) => (a.id - b.id));
-    //   const oldName = event.target.parentElement.parentElement.firstElementChild;
-    //   event.target.innerHTML = "SAVE?";
-    //   oldName.contentEditable="true";
-    //   oldName.classList.add('editable');
-    //   event.target.classList.add('save');
-    //   oldName.focus();
+      const reviewsById = this.reviews.sort((a,b) => (a.id - b.id));
+      const oldName = event.target.previousElementSibling.children[1];
+      event.target.innerHTML = "SAVE?";
+      oldName.contentEditable="true";
+      oldName.classList.add('editable');
+      event.target.classList.add('save');
+      oldName.focus();
     }
 
     updateReview() {
       event.preventDefault();
-    //   const oldName = event.target.parentElement.parentElement.children[0];
-    //   const newName = oldName.innerText;
-    //   const reviewId = event.target.dataset.id;
-    //   oldName.contentEditable="false";
-    //   oldName.classList.remove('editable');
-    //   event.target.classList.remove('save');
-    //   event.target.innerText = "edit";
-    //   this.adapter.updateDBReview(newName, reviewId)
-    //   .then(review => {
-    //     this.reviews.push(new Review(review));
-    //   });
+      const oldContent = event.target.previousElementSibling.children[1];
+      const newContent = oldContent.innerText;
+      const reviewId = event.target.dataset.id;
+      oldContent.contentEditable="false";
+      oldContent.classList.remove('editable');
+      event.target.classList.remove('save');
+      event.target.innerText = "edit";
+      debugger
+      this.adapter.updateDBReview(newContent, reviewId)
+      .then(review => {
+        this.reviews.push(new Review(review));
+      });
     }
 
     deleteReview() {
