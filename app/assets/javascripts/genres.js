@@ -86,7 +86,7 @@ $( document ).on('turbolinks:load', function() {
       <td><a href="" class="edit" data-id="${genre.id}">edit</a>
          |
         <a href="" class="delete" data-id="${genre.id}">delete</a></td>
-        <td> <a class="showGenre" data-id="${genre.id}" href="#">${genre.books.length}</a> </td>
+        <td> ${genre.books.length} </td>
       </tr>`;
     }
 
