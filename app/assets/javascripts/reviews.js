@@ -31,8 +31,6 @@ $( document ).on('turbolinks:load', function() {
 
     updateDBReview(newContent, id) {
       const review = {
-        // user_id: userId,
-        // book_id: bookId,
         content: newContent,
         id: id
       };
@@ -91,23 +89,17 @@ $( document ).on('turbolinks:load', function() {
       } else {
         edit_delete_link = ""
       };
-        // debugger
       return `<li><strong>${review.userName}</strong> wrote: <p class="review_content"> ${review.content}</p></li>${edit_delete_link}<br />`;
 
     }
 
     renderReviews() {
-      // const reviewArea = $("#review_container");
       const sortedReviews = this.reviews.sort((a, b) => a.id - b.id);
       const reviewString = sortedReviews.map(review => this.renderLi(review)).join('');
-      // reviewArea.empty();
-      // reviewArea.html(tableHeader);
       document.getElementById("review_container").innerHTML = reviewString
-      // debugger
     }
 
     listeners() {
-      // const body = document.querySelector('body');
       $("#new_review").on("submit", this.createNewReview.bind(this));
       $(document).on("click", "a.edit:contains('edit')", this.makeEditable.bind(this));
       $(document).on("click", "a.delete:contains('delete')", this.deleteReview.bind(this));
@@ -130,8 +122,6 @@ $( document ).on('turbolinks:load', function() {
 
     makeEditable(event) {
       event.preventDefault();
-      // debugger
-      console.log(event.target)
       const reviewsById = this.reviews.sort((a,b) => (a.id - b.id));
       const oldName = event.target.previousElementSibling.children[1];
       event.target.innerHTML = "SAVE?";
@@ -150,7 +140,6 @@ $( document ).on('turbolinks:load', function() {
       oldContent.classList.remove('editable');
       event.target.classList.remove('save');
       event.target.innerText = "edit";
-      debugger
       this.adapter.updateDBReview(newContent, reviewId)
       .then(review => {
         this.reviews.push(new Review(review));
@@ -159,7 +148,6 @@ $( document ).on('turbolinks:load', function() {
 
     deleteReview() {
       event.preventDefault();
-      console.log(event.target)
       const reviewId = event.target.dataset.id;
       this.adapter.deleteDBReview(reviewId)
       .then(review => {

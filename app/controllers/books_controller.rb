@@ -8,7 +8,6 @@ class BooksController < ApplicationController
 
   def new
     @book = Book.new
-    render json: @book, status: 200
   end
 
   def create

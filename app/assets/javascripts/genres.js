@@ -16,6 +16,10 @@ $( document ).on('turbolinks:load', function() {
       return fetch(`${this.baseUrl}.json`).then(response => response.json());
     }
 
+    getSpecificGenre(id) {
+      return fetch(`${window.location.href}.json`).then(response => response.json());
+    }
+
     createDBGenre(name) {
       const genre = {
         name: name
@@ -82,7 +86,7 @@ $( document ).on('turbolinks:load', function() {
       <td><a href="" class="edit" data-id="${genre.id}">edit</a>
          |
         <a href="" class="delete" data-id="${genre.id}">delete</a></td>
-        <td>${genre.books.length}</td>
+        <td> <a class="showGenre" data-id="${genre.id}" href="#">${genre.books.length}</a> </td>
       </tr>`;
     }
 
@@ -97,12 +101,18 @@ $( document ).on('turbolinks:load', function() {
       genreArea.append(genreString);
     }
 
+    // renderGenreShow(genre, element) {
+    //   debugger
+    //   console.log(genre, element)
+    // }
+
     listeners() {
       // const body = document.querySelector('body');
       $("#new_genre").on("submit", this.createNewGenre.bind(this));
       $(document).on("click", "a.edit:contains('edit')", this.makeEditable.bind(this));
       $(document).on("click", "a.delete:contains('delete')", this.deleteGenre.bind(this));
       $(document).on("click", "a:contains('SAVE?')", this.updateGenre.bind(this));
+      // $(document).on("click", "a.showGenre", this.showGenre.bind(this));
     }
 
     createNewGenre(event) {
@@ -152,6 +162,15 @@ $( document ).on('turbolinks:load', function() {
         this.fetchAndLoadGenres();
       });
     }
+
+    // showGenre() {
+    //   event.preventDefault();
+    //   const cell = event.target;
+    //   this.adapter.getSpecificGenre(cell.dataset.id)
+    //   .then(genre => {
+    //     this.renderGenreShow(genre, cell);
+    //   })
+    // }
 
   }
 
