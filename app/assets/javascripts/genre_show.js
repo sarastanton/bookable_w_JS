@@ -29,7 +29,6 @@ $( document ).on('turbolinks:load', function() {
       genreJSON.books.forEach(book => {
         this.bookArray.push({title: book.title, author: this.authorMatch(book.author_id, genreJSON.authors), id: book.id, author_id: book.author_id})
       });
-      debugger
     }
 
     authorMatch(authorId, authorsArray) {
@@ -59,18 +58,16 @@ $( document ).on('turbolinks:load', function() {
       })
     }
 
-
-    renderTr(genreBook) {
-      debugger
-      return `<tr><td><a href="http://localhost:3000/books/${genreBook.id}">${genreBook.title}</a></td><td><a href="http://localhost:3000/authors/${genreBook.author_id}">${genreBook.author}</a></td></tr>`
-    }
-
     showGenreInfo(specificGenre) {
       const genreShowTable = $("#genre_show_table");
       const tableHeader = `<th>Book Title</th> <th>Author</th>`;
       const genreBooksString = specificGenre.bookArray.map(book => this.renderTr(book)).join('')
       genreShowTable.html(tableHeader);
       genreShowTable.append(genreBooksString);
+    }
+
+    renderTr(genreBook) {
+      return `<tr><td><a href="http://localhost:3000/books/${genreBook.id}">${genreBook.title}</a></td><td><a href="http://localhost:3000/authors/${genreBook.author_id}">${genreBook.author}</a></td></tr>`
     }
 
   }

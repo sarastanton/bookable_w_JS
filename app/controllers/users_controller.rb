@@ -21,7 +21,7 @@ class UsersController < ApplicationController
       session[:user_id] = @user.id
       redirect_to root_path
     else
-      render 'signup'
+      render :signup
     end
   end
 
@@ -32,7 +32,10 @@ class UsersController < ApplicationController
       @book.mark_as_read(@user)
     end
     pages_read_by_user(@user)
-    render 'profile'
+    respond_to do |format|
+      format.html { render :profile }
+      format.json { render json: @user, status: 200 }
+    end
   end
 
   def index
