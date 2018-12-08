@@ -18,9 +18,9 @@ class BookSerializer < ActiveModel::Serializer
         av_rating += rating.value
       end
       result = av_rating.to_f / self.object.ratings.count
-      { average_rating: "#{result.round(1)} / 5.0" }
+      "#{result.round(1)} / 5.0"
     else
-      { average_rating: "none" }
+      "none"
     end
   end
 

@@ -5,6 +5,7 @@ class BooksController < ApplicationController
   before_action :find_user
   before_action :find_book_in_params
   skip_before_action :find_book_in_params, only: [:new, :create]
+  protect_from_forgery with: :null_session
 
   def new
     @book = Book.new
@@ -14,11 +15,10 @@ class BooksController < ApplicationController
     @book = Book.new
     @book = Book.create(book_params)
     if @book.save
-      redirect_to book_path(@book)
+      render json: @book, status: 200
     else
       render 'new'
     end
-    render json: @book, status: 200
   end
 
   def index
@@ -37,7 +37,8 @@ class BooksController < ApplicationController
     respond_to do |format|
       format.html { render 'show' }
       format.json { render json: @books, status: 200 }
-    end  end
+    end
+  end
 
   def edit
     respond_to do |format|
@@ -47,8 +48,11 @@ class BooksController < ApplicationController
   end
 
   def update
-    redirect_to book_path(@book) if @book.update(book_params)
-    render json: @book, status: 200
+    if @book.update(book_params)
+      render json: @book, status: 200
+    else
+      render 'show'
+    end
   end
 
   def destroy

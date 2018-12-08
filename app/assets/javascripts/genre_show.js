@@ -31,16 +31,6 @@ $( document ).on('turbolinks:load', function() {
       });
     }
 
-    // authorMatch(authorId, authorsArray) {
-    //   let name;
-    //   authorsArray.forEach(author => {
-    //     if(author.id == authorId) {
-    //       name = author.name;
-    //     }
-    //   })
-    //   return name;
-    // };
-
   }
 
   class Genres {

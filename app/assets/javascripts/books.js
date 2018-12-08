@@ -58,9 +58,21 @@ $( document ).on('turbolinks:load', function() {
   class Book {
     constructor(bookJSON) {
       this.id = bookJSON.id;
-      this.name = bookJSON.name;
-      this.books = bookJSON.books;
-      this.genres = bookJSON.genres;
+      this.title = bookJSON.title;
+      this.authorId = bookJSON.author_id;
+      this.authorName = bookJSON.author_name;
+      this.genreId = bookJSON.genre_id;
+      this.genreName = bookJSON.genre.name;
+      this.pageCount = bookJSON.page_count;
+      this.ratings = bookJSON.ratings;
+      this.reviews = bookJSON.reviews;
+      this.users = bookJSON.users;
+      this.userIds = [];
+      this.avRating = bookJSON.average_rating
+    }
+
+    getUserIds() {
+      this.users.forEach(user => this.userIds.push(user));
     }
 
   }
@@ -71,7 +83,7 @@ $( document ).on('turbolinks:load', function() {
       this.fetchAndLoadBooks();
       this.listeners();
       this.books = [];
-      this.baseUrl = 'http://localhost:3000/books';
+      this.baseUrl = 'http://localhost:3000';
     }
 
     fetchAndLoadBooks() {
@@ -86,18 +98,28 @@ $( document ).on('turbolinks:load', function() {
     }
 
     renderTr(book) {
-      return `<tr><td><a href="${this.baseUrl}/${book.id}">${book.name}</a></td>
-      <td><a href="" class="edit" data-id="${book.id}">edit</a>
-         |
-        <a href="" class="delete" data-id="${book.id}">delete</a></td>
-        <td>${book.books.length}</td>
+      let myBooksOption;
+      const currentUserId = $(".login_status.dataset.current_user").val();
+      if(book.users.includes(currentUserId)) {
+        myBooksOption = `<a href="${this.baseUrl}/users/${currentUserId}"> In My Books </a>`;
+      } else {
+        myBooksOption = "INSERT ADD TO MY BOOKS BUTTON HERE"
+      };
+      // debugger
+      return `<tr><td><a href="${this.baseUrl}/books/${book.id}">${book.title}</a></td>
+      <td><a href="${this.baseUrl}/authors/${book.authorId}">${book.authorName}</a></td>
+      <td><a href="${this.baseUrl}/genres/${book.genreId}">${book.genreName}</a></td>
+      <td>${book.pageCount}</td>
+      <td>${book.avRating}</td>
+      <td><a href="${this.baseUrl}/books/${book.id}/reviews">${book.reviews.length}</a></td>
+      <td>${myBooksOption}</td>
       </tr>`;
     }
 
     renderBooks() {
       const bookArea = $("#books_index_container");
-      const tableHeader = `<th>Book</th> <th>Options</th> <th>Number of Books</th>`;
-      const sortedBooks = this.books.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
+      const tableHeader = `<th>Title</th> <th>Author</th> <th>Genre</th> <th>Page Count</th> <th>Average Rating</th> <th>Number of Reviews</th> <th>  </th>`;
+      const sortedBooks = this.books.sort((a,b) => (a.title > b.title) ? 1 : ((b.title > a.title) ? -1 : 0));
       const bookString = sortedBooks.map(book => this.renderTr(book)).join('');
       const tableContents = jQuery.parseHTML(tableHeader + bookString);
       bookArea.empty();
