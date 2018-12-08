@@ -27,19 +27,19 @@ $( document ).on('turbolinks:load', function() {
       this.authors = genreJSON.authors;
       this.bookArray = [];
       genreJSON.books.forEach(book => {
-        this.bookArray.push({title: book.title, author: this.authorMatch(book.author_id, genreJSON.authors), id: book.id, author_id: book.author_id})
+        this.bookArray.push({title: book.title, author: book.author_name, id: book.id, author_id: book.author_id})
       });
     }
 
-    authorMatch(authorId, authorsArray) {
-      let name;
-      authorsArray.forEach(author => {
-        if(author.id == authorId) {
-          name = author.name;
-        }
-      })
-      return name;
-    };
+    // authorMatch(authorId, authorsArray) {
+    //   let name;
+    //   authorsArray.forEach(author => {
+    //     if(author.id == authorId) {
+    //       name = author.name;
+    //     }
+    //   })
+    //   return name;
+    // };
 
   }
 
