@@ -16,6 +16,20 @@ $( document ).on('turbolinks:load', function() {
       return fetch(`${this.baseUrl}.json`).then(response => response.json());
     }
 
+    addToMyBooks(id) {
+      return fetch(`${this.baseUrl}/${id}/add_to_my_books.json`, {
+        method: 'PUT',
+        headers: { "content-type": "application/json" }
+      }).then(response => response.json());
+    }
+
+    markAsRead(id) {
+      return fetch(`${this.baseUrl}/${id}/mark_as_read.json`, {
+        method: 'PUT',
+        headers: { "content-type": "application/json" }
+      }).then(response => response.json());
+    }
+
     createDBBook(name) {
       const book = {
         title: title,
@@ -141,6 +155,12 @@ $( document ).on('turbolinks:load', function() {
       addToMyBooks(event) {
         alert("click!");
         console.log(event.target.dataset.book_id)
+        const currentUserId = parseInt($(".login_status")[0].dataset.current_user);
+        const myBooksLink = document.createElement('a');
+        this.adapter.addToMyBooks(event.target.dataset.book_id);
+        myBooksLink.setAttribute('href', `${this.baseUrl}/users/${currentUserId}`);
+        myBooksLink.innerHTML = "In My Books";
+        event.target.replaceWith(myBooksLink)
       }
 
     // createNewBook(event) {

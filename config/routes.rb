@@ -19,10 +19,10 @@ Rails.application.routes.draw do
   get '/signup' => 'users#new'
   post '/signup' => 'users#create'
 
-  get '/my_books' => 'books#index'
+  # get '/my_books' => 'books#index'
 
-  put '/add_to_my_books' => 'books#add_to_my_books'
-  put '/add_to_my_books' => 'books#add_to_my_books'
+  put '/books/:id/add_to_my_books' => 'books#add_to_my_books'
+  put '/books/:id/mark_as_read' => 'books#mark_as_read'
 
 
   root 'sessions#index'
