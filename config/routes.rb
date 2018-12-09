@@ -21,6 +21,10 @@ Rails.application.routes.draw do
 
   get '/my_books' => 'books#index'
 
+  put '/add_to_my_books' => 'books#add_to_my_books'
+  put '/add_to_my_books' => 'books#add_to_my_books'
+
+
   root 'sessions#index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

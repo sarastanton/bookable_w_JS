@@ -2,10 +2,17 @@
 <h1> All Books </h1>
 
 <table class="table" id="books_index_container">
-  
+
 </table>
 
 <br />
 <br />
 
-<%= button_to "Add New Book", new_book_path, :method => :get %>
+
+<h4> Add a Book: </h4>
+
+<%= render partial: 'book_form', locals: {book: @book, author: @book.author, page_count: @book.page_count, genre: @book.genre} %>
+
+<br />
+<br />
+<%= render partial: "layouts/errors", locals: {object: @book} %>

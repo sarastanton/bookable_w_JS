@@ -39,7 +39,10 @@ class UsersController < ApplicationController
   end
 
   def index
-
+    respond_to do |format|
+      format.html { render :profile }
+      format.json { render json: @user, status: 200 }
+    end
   end
 
   private

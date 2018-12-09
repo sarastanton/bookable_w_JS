@@ -8,7 +8,7 @@ class BooksController < ApplicationController
   protect_from_forgery with: :null_session
 
   def new
-    @book = Book.new
+
   end
 
   def create
@@ -22,6 +22,7 @@ class BooksController < ApplicationController
   end
 
   def index
+    @book = Book.new
     @books = Book.all.sort_by(&:title)
     if params[:add_to_my_books]
       @book.add_to_my_books(@user)
@@ -58,6 +59,19 @@ class BooksController < ApplicationController
   def destroy
     @book.destroy
     render json: { bookId: @book.id}
+  end
+
+  def add_to_my_books
+    book_id = params[:book_id]
+    current_user.books << Book.find(book_id)
+    @read_status = ReadStatus.find_or_create_by(book_id: book_id, user_id: current_user.id)
+  end
+
+  def mark_as_read
+    book_id = params[:book_id]
+    @read_status = ReadStatus.find_by(book_id: book_id, user_id: current_user.id)
+    @read_status.value = true
+    @read_status.save
   end
 
   private

@@ -68,11 +68,12 @@ $( document ).on('turbolinks:load', function() {
       this.reviews = bookJSON.reviews;
       this.users = bookJSON.users;
       this.userIds = [];
-      this.avRating = bookJSON.average_rating
+      this.avRating = bookJSON.average_rating;
+      this.getUserIds()
     }
 
     getUserIds() {
-      this.users.forEach(user => this.userIds.push(user));
+      this.users.forEach(user => this.userIds.push(user.id));
     }
 
   }
@@ -99,11 +100,12 @@ $( document ).on('turbolinks:load', function() {
 
     renderTr(book) {
       let myBooksOption;
-      const currentUserId = $(".login_status.dataset.current_user").val();
-      if(book.users.includes(currentUserId)) {
+      const currentUserId = parseInt($(".login_status")[0].dataset.current_user);
+
+      if(book.userIds.includes(currentUserId)) {
         myBooksOption = `<a href="${this.baseUrl}/users/${currentUserId}"> In My Books </a>`;
       } else {
-        myBooksOption = "INSERT ADD TO MY BOOKS BUTTON HERE"
+        myBooksOption = `<button type="button" class="add_to_my_books" data-book_id="${book.id}">Add to My Books</button>`
       };
       // debugger
       return `<tr><td><a href="${this.baseUrl}/books/${book.id}">${book.title}</a></td>
@@ -129,59 +131,65 @@ $( document ).on('turbolinks:load', function() {
 
     listeners() {
       // const body = document.querySelector('body');
-      $("#new_book").on("submit", this.createNewBook.bind(this));
-      $(document).on("click", "a.edit:contains('edit')", this.makeEditable.bind(this));
-      $(document).on("click", "a.delete:contains('delete')", this.deleteBook.bind(this));
-      $(document).on("click", "a:contains('SAVE?')", this.updateBook.bind(this));
+      // $("#new_book").on("submit", this.createNewBook.bind(this));
+      $(document).on("click", ".add_to_my_books", this.addToMyBooks.bind(this));
+      // $(document).on("click", "a.edit:contains('edit')", this.makeEditable.bind(this));
+      // $(document).on("click", "a.delete:contains('delete')", this.deleteBook.bind(this));
+      // $(document).on("click", "a:contains('SAVE?')", this.updateBook.bind(this));
     }
 
-    createNewBook(event) {
-      event.preventDefault();
-      const formInput = $("#book_name").val();
-      this.adapter
-      .createDBBook(formInput)
-      .then(book => {
-        this.books.push(new Book(book));
-        $("#book_name").val("");
-        this.renderBooks();
-      });
-    }
+      addToMyBooks(event) {
+        alert("click!");
+        console.log(event.target.dataset.book_id)
+      }
 
-    makeEditable(event) {
-      event.preventDefault();
-      const booksById = this.books.sort((a,b) => (a.id - b.id));
-      const oldName = event.target.parentElement.parentElement.firstElementChild;
-      event.target.innerHTML = "SAVE?";
-      oldName.contentEditable="true";
-      oldName.classList.add('editable');
-      event.target.classList.add('save');
-      oldName.focus();
-    }
-
-    updateBook() {
-      event.preventDefault();
-      const oldName = event.target.parentElement.parentElement.children[0];
-      const newName = oldName.innerText;
-      const bookId = event.target.dataset.id;
-      oldName.contentEditable="false";
-      oldName.classList.remove('editable');
-      event.target.classList.remove('save');
-      event.target.innerText = "edit";
-      this.adapter.updateDBBook(newName, bookId)
-      .then(book => {
-        this.books.push(new Book(book));
-      });
-    }
-
-    deleteBook() {
-      event.preventDefault();
-      const bookId = event.target.dataset.id;
-      this.adapter.deleteDBBook(bookId)
-      .then(book => {
-        this.books = [];
-        this.fetchAndLoadBooks();
-      });
-    }
+    // createNewBook(event) {
+    //   event.preventDefault();
+    //   const formInput = $("#book_name").val();
+    //   this.adapter
+    //   .createDBBook(formInput)
+    //   .then(book => {
+    //     this.books.push(new Book(book));
+    //     $("#book_name").val("");
+    //     this.renderBooks();
+    //   });
+    // }
+    //
+    // makeEditable(event) {
+    //   event.preventDefault();
+    //   const booksById = this.books.sort((a,b) => (a.id - b.id));
+    //   const oldName = event.target.parentElement.parentElement.firstElementChild;
+    //   event.target.innerHTML = "SAVE?";
+    //   oldName.contentEditable="true";
+    //   oldName.classList.add('editable');
+    //   event.target.classList.add('save');
+    //   oldName.focus();
+    // }
+    //
+    // updateBook() {
+    //   event.preventDefault();
+    //   const oldName = event.target.parentElement.parentElement.children[0];
+    //   const newName = oldName.innerText;
+    //   const bookId = event.target.dataset.id;
+    //   oldName.contentEditable="false";
+    //   oldName.classList.remove('editable');
+    //   event.target.classList.remove('save');
+    //   event.target.innerText = "edit";
+    //   this.adapter.updateDBBook(newName, bookId)
+    //   .then(book => {
+    //     this.books.push(new Book(book));
+    //   });
+    // }
+    //
+    // deleteBook() {
+    //   event.preventDefault();
+    //   const bookId = event.target.dataset.id;
+    //   this.adapter.deleteDBBook(bookId)
+    //   .then(book => {
+    //     this.books = [];
+    //     this.fetchAndLoadBooks();
+    //   });
+    // }
 
   }
 
