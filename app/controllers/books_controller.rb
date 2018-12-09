@@ -62,7 +62,7 @@ class BooksController < ApplicationController
   end
 
   def add_to_my_books
-    binding.pry
+    # binding.pry
     book_id = params[:id]
     current_user.books << Book.find(book_id)
     @read_status = ReadStatus.find_or_create_by(book_id: book_id, user_id: current_user.id)

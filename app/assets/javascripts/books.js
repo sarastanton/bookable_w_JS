@@ -1,4 +1,4 @@
-$( document ).on('turbolinks:load', function() {
+$( document ).ready(function() {
 
   class BooksApp {
     constructor() {
@@ -153,6 +153,7 @@ $( document ).on('turbolinks:load', function() {
     }
 
       addToMyBooks(event) {
+        event.preventDefault;
         alert("click!");
         console.log(event.target.dataset.book_id)
         const currentUserId = parseInt($(".login_status")[0].dataset.current_user);
