@@ -30,14 +30,14 @@ $( document ).ready(function() {
       }).then(response => response.json());
     }
 
-    createDBBook(name) {
+    createDBBook(title, authorName, genreName, pageCount) {
       const book = {
         title: title,
-        author_name: author_name,
-        genre_name: genre_name,
-        page_count: page_count
-
+        author_name: authorName,
+        genre_name: genreName,
+        page_count: pageCount
       };
+
       return fetch(`${this.baseUrl}.json`, {
         method: 'POST',
         headers: { "content-type": "application/json" },
@@ -45,27 +45,27 @@ $( document ).ready(function() {
       }).then(response => response.json());
     }
 
-    updateDBBook(id, newTitle, newAuthorName, newGenreName, newPageCount) {
-      const book = {
-        id: id,
-        title: newTitle,
-        author_name: newAuthorName,
-        genre_name: newGenreName,
-        page_count: newPageCount
-      };
-      return fetch(`${this.baseUrl}/${id}`, {
-        method: 'PATCH',
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({ book }),
-      }).then(response => response.json());
-    }
-
-    deleteDBBook(id) {
-      return fetch(`${this.baseUrl}/${id}`, {
-        method: 'DELETE',
-        headers: { "content-type": "application/json" },
-      }).then(response => response.json());
-    }
+    // updateDBBook(id, newTitle, newAuthorName, newGenreName, newPageCount) {
+    //   const book = {
+    //     id: id,
+    //     title: newTitle,
+    //     author_name: newAuthorName,
+    //     genre_name: newGenreName,
+    //     page_count: newPageCount
+    //   };
+    //   return fetch(`${this.baseUrl}/${id}`, {
+    //     method: 'PATCH',
+    //     headers: { "content-type": "application/json" },
+    //     body: JSON.stringify({ book }),
+    //   }).then(response => response.json());
+    // }
+    //
+    // deleteDBBook(id) {
+    //   return fetch(`${this.baseUrl}/${id}`, {
+    //     method: 'DELETE',
+    //     headers: { "content-type": "application/json" },
+    //   }).then(response => response.json());
+    // }
 
   }
 
@@ -145,7 +145,7 @@ $( document ).ready(function() {
 
     listeners() {
       // const body = document.querySelector('body');
-      // $("#new_book").on("submit", this.createNewBook.bind(this));
+      $("#new_book").on("submit", this.createNewBook.bind(this));
       $(document).on("click", ".add_to_my_books", this.addToMyBooks.bind(this));
       // $(document).on("click", "a.edit:contains('edit')", this.makeEditable.bind(this));
       // $(document).on("click", "a.delete:contains('delete')", this.deleteBook.bind(this));
@@ -164,17 +164,23 @@ $( document ).ready(function() {
         event.target.replaceWith(myBooksLink)
       }
 
-    // createNewBook(event) {
-    //   event.preventDefault();
-    //   const formInput = $("#book_name").val();
-    //   this.adapter
-    //   .createDBBook(formInput)
-    //   .then(book => {
-    //     this.books.push(new Book(book));
-    //     $("#book_name").val("");
-    //     this.renderBooks();
-    //   });
-    // }
+    createNewBook(event) {
+      event.preventDefault();
+      const title = $("#book_title").val();
+      const authorName = $("#book_author_name").val();
+      const genreName = $("#book_genre_name").val();
+      const pageCount = $("#book_page_count").val();
+      this.adapter
+      .createDBBook(title, authorName, genreName, pageCount)
+      .then(book => {
+        this.books.push(new Book(book));
+        $("#book_title").val("")
+        $("#book_author_name").val("");
+        $("#book_genre_name").val("");
+        $("#book_page_count").val("");
+        this.renderBooks();
+      });
+    }
     //
     // makeEditable(event) {
     //   event.preventDefault();
