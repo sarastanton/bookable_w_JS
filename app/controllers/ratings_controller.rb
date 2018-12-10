@@ -7,7 +7,7 @@ class RatingsController < ApplicationController
 
   def new
     @rating = Rating.new(book_id: params[:book_id], user_id: helpers.current_user.id)
-    render json: @rating, status: 200
+    # render json: @rating, status: 200
   end
 
   def create
@@ -17,7 +17,7 @@ class RatingsController < ApplicationController
     else
       render 'new'
     end
-    render json: @rating, status: 200
+    # render json: @rating, status: 200
   end
 
   def edit
@@ -27,7 +27,7 @@ class RatingsController < ApplicationController
     else
       redirect_to user_path(@user)
     end
-    render json: @rating, status: 200
+    # render json: @rating, status: 200
   end
 
   def update
@@ -37,7 +37,7 @@ class RatingsController < ApplicationController
     else
       render 'edit'
     end
-    render json: @rating, status: 200
+    # render json: @rating, status: 200
   end
 
   private
