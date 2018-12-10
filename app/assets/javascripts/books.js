@@ -45,21 +45,21 @@ $( document ).ready(function() {
       }).then(response => response.json());
     }
 
-    // updateDBBook(id, newTitle, newAuthorName, newGenreName, newPageCount) {
-    //   const book = {
-    //     id: id,
-    //     title: newTitle,
-    //     author_name: newAuthorName,
-    //     genre_name: newGenreName,
-    //     page_count: newPageCount
-    //   };
-    //   return fetch(`${this.baseUrl}/${id}`, {
-    //     method: 'PATCH',
-    //     headers: { "content-type": "application/json" },
-    //     body: JSON.stringify({ book }),
-    //   }).then(response => response.json());
-    // }
-    //
+    updateDBBook(id, newTitle, newAuthorName, newGenreName, newPageCount) {
+      const book = {
+        // id: id,
+        title: newTitle,
+        author_name: newAuthorName,
+        genre_name: newGenreName,
+        page_count: newPageCount
+      };
+      return fetch(`${this.baseUrl}/${id}`, {
+        method: 'PATCH',
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ book }),
+      }).then(response => response.json());
+    }
+
     // deleteDBBook(id) {
     //   return fetch(`${this.baseUrl}/${id}`, {
     //     method: 'DELETE',
@@ -128,7 +128,7 @@ $( document ).ready(function() {
       <td>${book.pageCount}</td>
       <td>${book.avRating}</td>
       <td><a href="${this.baseUrl}/books/${book.id}/reviews">${book.reviews.length}</a></td>
-      <td>${myBooksOption}</td>
+      <td>${myBooksOption}</td><td><a href="" class="edit" data-id="${book.id}">edit</a></td>
       </tr>`;
     }
 
@@ -147,22 +147,22 @@ $( document ).ready(function() {
       // const body = document.querySelector('body');
       $("#new_book").on("submit", this.createNewBook.bind(this));
       $(document).on("click", ".add_to_my_books", this.addToMyBooks.bind(this));
-      // $(document).on("click", "a.edit:contains('edit')", this.makeEditable.bind(this));
+      $(document).on("click", "a.edit:contains('edit')", this.makeEditable.bind(this));
       // $(document).on("click", "a.delete:contains('delete')", this.deleteBook.bind(this));
-      // $(document).on("click", "a:contains('SAVE?')", this.updateBook.bind(this));
+      $(document).on("click", "a:contains('SAVE?')", this.updateBook.bind(this));
     }
 
-      addToMyBooks(event) {
-        event.preventDefault;
-        alert("click!");
-        console.log(event.target.dataset.book_id)
-        const currentUserId = parseInt($(".login_status")[0].dataset.current_user);
-        const myBooksLink = document.createElement('a');
-        this.adapter.addToMyBooks(event.target.dataset.book_id);
-        myBooksLink.setAttribute('href', `${this.baseUrl}/users/${currentUserId}`);
-        myBooksLink.innerHTML = "In My Books";
-        event.target.replaceWith(myBooksLink)
-      }
+    addToMyBooks(event) {
+      event.preventDefault;
+      alert("click!");
+      console.log(event.target.dataset.book_id)
+      const currentUserId = parseInt($(".login_status")[0].dataset.current_user);
+      const myBooksLink = document.createElement('a');
+      this.adapter.addToMyBooks(event.target.dataset.book_id);
+      myBooksLink.setAttribute('href', `${this.baseUrl}/users/${currentUserId}`);
+      myBooksLink.innerHTML = "In My Books";
+      event.target.replaceWith(myBooksLink)
+    }
 
     createNewBook(event) {
       event.preventDefault();
@@ -181,32 +181,45 @@ $( document ).ready(function() {
         this.renderBooks();
       });
     }
+
+    makeEditable(event) {
+      event.preventDefault();
+      // debugger
+      const editableBookValues =
+      [event.target.parentElement.parentElement.children[0], event.target.parentElement.parentElement.children[1], event.target.parentElement.parentElement.children[2], event.target.parentElement.parentElement.children[3]];
+      // const booksById = this.books.sort((a,b) => (a.id - b.id));
+      // const oldName = event.target.parentElement.parentElement.firstElementChild;
+      event.target.innerHTML = "SAVE?";
+      editableBookValues.forEach(node => node.classList.add('editable'));
+      editableBookValues.forEach(node => node.setAttribute('contenteditable', 'true'));
+      editableBookValues.forEach(node => console.log(node));
+      event.target.classList.add('save');
+      // oldName.focus();
+    }
     //
-    // makeEditable(event) {
-    //   event.preventDefault();
-    //   const booksById = this.books.sort((a,b) => (a.id - b.id));
-    //   const oldName = event.target.parentElement.parentElement.firstElementChild;
-    //   event.target.innerHTML = "SAVE?";
-    //   oldName.contentEditable="true";
-    //   oldName.classList.add('editable');
-    //   event.target.classList.add('save');
-    //   oldName.focus();
-    // }
-    //
-    // updateBook() {
-    //   event.preventDefault();
-    //   const oldName = event.target.parentElement.parentElement.children[0];
-    //   const newName = oldName.innerText;
-    //   const bookId = event.target.dataset.id;
+    updateBook() {
+      event.preventDefault();
+      // alert("clicked SAVE!")
+      const editableBookValues =
+      [event.target.parentElement.parentElement.children[0], event.target.parentElement.parentElement.children[1], event.target.parentElement.parentElement.children[2], event.target.parentElement.parentElement.children[3]];
+      const bookId = event.target.dataset.id;
+      const newTitle = editableBookValues[0].innerText;
+      const newAuthor = editableBookValues[1].innerText;
+      const newGenre = editableBookValues[2].innerText;
+      const newPageCount = editableBookValues[3].innerText;
+      const editedBookValues = [bookId, newTitle, newAuthor, newGenre, newPageCount];
+      editableBookValues.forEach(node => node.setAttribute('contenteditable', 'false'));
+      // debugger
     //   oldName.contentEditable="false";
-    //   oldName.classList.remove('editable');
-    //   event.target.classList.remove('save');
-    //   event.target.innerText = "edit";
-    //   this.adapter.updateDBBook(newName, bookId)
-    //   .then(book => {
-    //     this.books.push(new Book(book));
-    //   });
-    // }
+      editableBookValues.forEach(node => node.classList.remove('editable'));
+      event.target.classList.remove('save');
+      event.target.innerText = "edit";
+      debugger
+      this.adapter.updateDBBook(...editedBookValues)
+      .then(book => {
+        this.books.push(new Book(book));
+      });
+    }
     //
     // deleteBook() {
     //   event.preventDefault();

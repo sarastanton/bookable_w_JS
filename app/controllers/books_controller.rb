@@ -52,7 +52,7 @@ class BooksController < ApplicationController
     if @book.update(book_params)
       render json: @book, status: 200
     else
-      render 'show'
+      render 'index'
     end
   end
 
