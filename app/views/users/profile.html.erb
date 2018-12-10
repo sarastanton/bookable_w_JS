@@ -3,35 +3,13 @@
 <h1> <%= @user.username %> </h1>
 <br />
 
-<h3> <%= @user.pages_read %> pages read so far </h3>
+<div id="page_count_container"></div>
 <br />
 <br />
 
-<h4> Books I want to read: </h4>
-<table class="table">
-  <th> Book </th>
-  <th> Author </th>
-  <th> Genre </th>
-  <th> Page Count </th>
-  <th>  </th>
-  <th>  </th>
-  <th>  </th>
+<h4> Books I Want to Read: </h4>
 
-  <% Book.my_unread_books(@user).each do |book| %>
-    <tr>
-      <td> <%= link_to book.title, book_path(book) %> </td>
-      <td> <%= link_to book.author.name, author_path(book.author) %> </td>
-      <td> <%= link_to book.genre.name, genre_path(book.genre) %> </td>
-      <td> <%= book.page_count %> </td>
-      <td>
-        <%= form_tag(user_path(@user), method: :get) do %>
-          <%= hidden_field_tag "mark_as_read" %>
-          <%= hidden_field_tag "book_id", book.id %>
-          <%= submit_tag ("Mark as Read") %>
-        <% end %>
-      </td>
-    </tr>
-  <% end %>
+<table id="want_to_read" class="table">
 </table>
 
 <br />
@@ -39,34 +17,5 @@
 
 <h4> Books I Have Read: </h4>
 
-<table class="table">
-  <th> Book </th>
-  <th> Author </th>
-  <th> Genre </th>
-  <th> Page Count </th>
-  <th> My Rating (click to edit) </th>
-  <th> My Review (click to edit) </th>
-
-  <% Book.my_read_books(@user).each do |book| %>
-    <tr>
-      <td> <%= link_to book.title, book_path(book) %> </td>
-      <td> <%= link_to book.author.name, author_path(book.author) %> </td>
-      <td> <%= link_to book.genre.name, genre_path(book.genre) %> </td>
-      <td> <%= book.page_count %> </td>
-      <td>
-        <% if !Rating.my_ratings(book, @user).empty? %>
-          <%= link_to "#{Rating.my_ratings(book, @user).first.value.to_f.round(1)} / 5.0", edit_book_rating_path(book, Rating.my_ratings(book, @user).first) %>
-        <% else %>
-          <%= button_to "Add Rating", new_book_rating_path(book), :method => :get %>
-        <% end %>
-      </td>
-      <td>
-        <% if !Review.my_reviews(book, @user).empty? %>
-          <%= link_to Review.my_reviews(book, @user).first.content, edit_book_review_path(book, Review.my_reviews(book, @user).first)%>
-        <% else %>
-          <%= button_to "Add Review", new_book_review_path(book), :method => :get %>
-        <% end %>
-      </td>
-    </tr>
-  <% end %>
+<table id="have_read" class="table">
 </table>

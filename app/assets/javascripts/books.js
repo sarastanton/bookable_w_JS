@@ -23,13 +23,6 @@ $( document ).ready(function() {
       }).then(response => response.json());
     }
 
-    markAsRead(id) {
-      return fetch(`${this.baseUrl}/${id}/mark_as_read.json`, {
-        method: 'PUT',
-        headers: { "content-type": "application/json" }
-      }).then(response => response.json());
-    }
-
     createDBBook(title, authorName, genreName, pageCount) {
       const book = {
         title: title,
