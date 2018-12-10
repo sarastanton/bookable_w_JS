@@ -138,8 +138,6 @@ $( document ).ready(function() {
 
     addToMyBooks(event) {
       event.preventDefault;
-      alert("click!");
-      console.log(event.target.dataset.book_id)
       const currentUserId = parseInt($(".login_status")[0].dataset.current_user);
       const myBooksLink = document.createElement('a');
       this.adapter.addToMyBooks(event.target.dataset.book_id);
@@ -174,7 +172,6 @@ $( document ).ready(function() {
       event.target.innerHTML = "SAVE?";
       editableBookValues.forEach(node => node.classList.add('editable'));
       editableBookValues.forEach(node => node.setAttribute('contenteditable', 'true'));
-      editableBookValues.forEach(node => console.log(node));
       event.target.classList.add('save');
     }
 
