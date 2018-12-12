@@ -17,7 +17,8 @@ class UserSerializer < ActiveModel::Serializer
             genre_id: book.genre_id,
             page_count: book.page_count,
             my_rating: "#{rating_value(self.object.id, book)}",
-            my_review: Review.find_by(user_id: current_user.id, book_id: book.id) }
+            my_review: Review.find_by(user_id: current_user.id, book_id: book.id)
+          }
         end
       end
     end
@@ -29,7 +30,15 @@ class UserSerializer < ActiveModel::Serializer
     self.object.books.each do |book|
       book.read_statuses.each do |read_status|
         if read_status.user_id == self.object.id && read_status.value == false
-          unread_books << { id: book.id, title: book.title, author: Author.find(book.author_id).name, genre: Genre.find(book.genre_id).name, page_count: book.page_count }
+          unread_books << {
+            id: book.id,
+            title: book.title,
+            author: Author.find(book.author_id).name,
+            author_id: book.author_id,
+            genre: Genre.find(book.genre_id).name,
+            genre_id: book.genre_id,
+            page_count: book.page_count
+          }
         end
       end
     end

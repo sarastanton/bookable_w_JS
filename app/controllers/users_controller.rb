@@ -27,14 +27,13 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    if params[:mark_as_read]
-      @book = Book.find(params[:book_id])
-      @book.mark_as_read(@user)
-    end
-    pages_read_by_user(@user)
-    respond_to do |format|
-      format.html { render :profile }
-      format.json { render json: @user, status: 200 }
+    if @user == current_user
+      respond_to do |format|
+        format.html { render :profile }
+        format.json { render json: @user, status: 200 }
+      end
+    else
+      redirect_to root_path
     end
   end
 

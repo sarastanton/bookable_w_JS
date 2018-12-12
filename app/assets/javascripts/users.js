@@ -70,17 +70,24 @@ $( document ).ready(function() {
 
     renderWantToReadTr(book) {
       const wantToReadBtn = `<button type="button" class="mark_as_read" data-book_id="${book.id}">Mark as Read</button>`;
-      return `<tr> <td>${book.title}</td> <td>${book.author}</td> <td>${book.genre}</td> <td>${book.page_count}</td> <td>${wantToReadBtn}</td> </tr>`;
+      // debugger
+      return `<tr>
+      <td><a href="${this.baseUrl}/books/${book.id}">${book.title}</a></td>
+      <td><a href="${this.baseUrl}/authors/${book.author_id}">${book.author}</a></td>
+      <td><a href="${this.baseUrl}/genres/${book.genre_id}">${book.genre}</a></td>
+      <td>${book.page_count}</td>
+      <td>${wantToReadBtn}</td>
+      </tr>`;
     }
 
     renderWantToReadTable(user) {
       const wantToReadTable = $("#want_to_read");
       const tableHeaders = "<th>Book</th> <th>Author</th> <th>Genre</th> <th>Page Count</th> <th> </th>";
-      const unreadBooks =[];
+      const wantToRead =[];
       user.unreadBooks.forEach(function(book) {
-        unreadBooks.push(this.renderWantToReadTr(book))
+        wantToRead.push(this.renderWantToReadTr(book))
       }.bind(this));
-      const bookString = unreadBooks.join("");
+      const bookString = wantToRead.join("");
       wantToReadTable.html(tableHeaders);
       wantToReadTable.append(bookString);
     }
@@ -94,17 +101,24 @@ $( document ).ready(function() {
       if(book.my_review != null ){
         reviewContent = book.my_review.content
       } else (reviewContent = "")
-      return `<tr> <td>${book.title}</td> <td>${book.author}</td> <td>${book.genre}</td> <td>${book.page_count}</td> <td>${ratingVal}</td> <td>${reviewContent}</td> </tr>`;
+      return `<tr>
+      <td><a href="${this.baseUrl}/books/${book.id}">${book.title}</a></td>
+      <td><a href="${this.baseUrl}/authors/${book.author_id}">${book.author}</a></td>
+      <td><a href="${this.baseUrl}/genres/${book.genre_id}">${book.genre}</a></td>
+      <td>${book.page_count}</td>
+      <td>${ratingVal}</td>
+      <td>${reviewContent}</td> </tr>`;
     }
 
     renderHaveReadTable(user) {
       const haveReadTable = $("#have_read");
       const tableHeaders = "<th>Book</th> <th>Author</th> <th>Genre</th> <th>Page Count</th><th> My Rating</th> <th>My Review</th>"
-      const readBooks =[];
+      const haveRead =[];
+      debugger
       user.readBooks.forEach(function(book) {
-        readBooks.push(this.renderHaveReadTr(book))
+        haveRead.push(this.renderHaveReadTr(book))
       }.bind(this));
-      const bookString = readBooks.join("");
+      const bookString = haveRead.join("");
       haveReadTable.html(tableHeaders);
       haveReadTable.append(bookString)
     }
