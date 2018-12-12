@@ -76,9 +76,9 @@ $( document ).ready(function() {
       .then(reviews => {
         reviews.forEach(review => this.reviews.push(new Review(review)))
       })
-      .then(reviews => {
-        this.renderReviews()
-      });
+      // .then(reviews => {
+      //   this.renderReviews()
+      // });
     }
 
     renderLi(review) {
@@ -93,17 +93,19 @@ $( document ).ready(function() {
 
     }
 
-    renderReviews() {
-      const sortedReviews = this.reviews.sort((a, b) => a.id - b.id);
-      const reviewString = sortedReviews.map(review => this.renderLi(review)).join('');
-      document.getElementById("review_container").innerHTML = reviewString
-    }
+    // renderReviews() {
+    //   const sortedReviews = this.reviews.sort((a, b) => a.id - b.id);
+    //   const reviewString = sortedReviews.map(review => this.renderLi(review)).join('');
+    //   document.getElementById("review_container").innerHTML = reviewString
+    // }
 
     listeners() {
       $("#new_review").on("submit", this.createNewReview.bind(this));
       $(document).on("click", "a.edit:contains('edit')", this.makeEditable.bind(this));
       $(document).on("click", "a.delete:contains('delete')", this.deleteReview.bind(this));
       $(document).on("click", "a:contains('SAVE?')", this.updateReview.bind(this));
+      $(document).on("click", ".show_reviews", this.showReviews.bind(this));
+      $(document).on("click", ".hide_reviews", this.hideReviews.bind(this));
     }
 
     createNewReview(event) {
@@ -154,6 +156,24 @@ $( document ).ready(function() {
         this.reviews = [];
         this.fetchAndLoadReviews();
       });
+    }
+
+    showReviews(event) {
+      event.preventDefault();
+      const sortedReviews = this.reviews.sort((a, b) => a.id - b.id);
+      const reviewString = sortedReviews.map(review => this.renderLi(review)).join('');
+      document.getElementById("review_container").innerHTML = reviewString
+      event.target.classList.remove("show_reviews");
+      event.target.classList.add("hide_reviews");
+      event.target.innerText = "Hide Reviews";
+    }
+
+    hideReviews(event) {
+      event.preventDefault();
+      $("#review_container").empty();
+      event.target.classList.remove("hide_reviews");
+      event.target.classList.add("show_reviews");
+      event.target.innerText = "Show Reviews";
     }
 
   }

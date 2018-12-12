@@ -1,4 +1,5 @@
-<%= form_for [book, rating] do |f| %>
+
+<%= form_for [@book, @rating] do |f| %>
 
 <div class="rating">
     <span><input type="radio" name="rating" id="str5" value="5"><label for="str5"></label></span>
@@ -14,8 +15,9 @@
 <br />
 <br />
 <br />
-<br />
-<br />
 
 <%= f.submit "Save Rating" %>
 <% end %>
+
+
+<%= render partial: "layouts/errors", locals: {object: @rating} %>

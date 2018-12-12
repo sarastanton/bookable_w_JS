@@ -34,10 +34,11 @@ class BooksController < ApplicationController
   end
 
   def show
-    @review = Review.new(book_id: params[:book_id], user_id: helpers.current_user.id)
+    @review = Review.new
+    @rating = Rating.new
     respond_to do |format|
       format.html { render 'show' }
-      format.json { render json: @books, status: 200 }
+      format.json { render json: @book, status: 200 }
     end
   end
 

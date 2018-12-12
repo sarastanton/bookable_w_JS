@@ -16,6 +16,10 @@ $( document ).ready(function() {
       return fetch(`${this.baseUrl}.json`).then(response => response.json());
     }
 
+    getReviews(id) {
+      return fetch(`${this.baseUrl}/${id}/reviews.json`).then(response => response.json());
+    }
+
     addToMyBooks(id) {
       return fetch(`${this.baseUrl}/${id}/add_to_my_books.json`, {
         method: 'PUT',
@@ -59,7 +63,7 @@ $( document ).ready(function() {
       this.id = bookJSON.id;
       this.title = bookJSON.title;
       this.authorId = bookJSON.author_id;
-      this.authorName = bookJSON.author_name;
+      this.authorName = bookJSON.author.name;
       this.genreId = bookJSON.genre_id;
       this.genreName = bookJSON.genre.name;
       this.pageCount = bookJSON.page_count;
@@ -132,7 +136,6 @@ $( document ).ready(function() {
       $("#new_book").on("submit", this.createNewBook.bind(this));
       $(document).on("click", ".add_to_my_books", this.addToMyBooks.bind(this));
       $(document).on("click", "a.edit:contains('edit')", this.makeEditable.bind(this));
-      // $(document).on("click", "a.delete:contains('delete')", this.deleteBook.bind(this));
       $(document).on("click", "a:contains('SAVE?')", this.updateBook.bind(this));
     }
 
@@ -175,7 +178,7 @@ $( document ).ready(function() {
       event.target.classList.add('save');
     }
 
-    updateBook() {
+    updateBook(event) {
       event.preventDefault();
       const editableBookValues =
       [event.target.parentElement.parentElement.children[0], event.target.parentElement.parentElement.children[1], event.target.parentElement.parentElement.children[2], event.target.parentElement.parentElement.children[3]];
@@ -195,6 +198,7 @@ $( document ).ready(function() {
         this.books.push(new Book(book));
       });
     }
+
 
   }
 

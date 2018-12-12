@@ -15,12 +15,12 @@ $( document ).ready(function() {
     getSpecificGenre() {
       return fetch(`${window.location.href}.json`)
       .then(response => response.json())
-      .then(JSON => new specificGenre(JSON))
+      .then(JSON => new SpecificGenre(JSON))
     }
 
   }
 
-  class specificGenre {
+  class SpecificGenre {
     constructor(genreJSON) {
       this.id = genreJSON.id;
       this.name = genreJSON.name;

@@ -70,7 +70,6 @@ $( document ).ready(function() {
 
     renderWantToReadTr(book) {
       const wantToReadBtn = `<button type="button" class="mark_as_read" data-book_id="${book.id}">Mark as Read</button>`;
-      // debugger
       return `<tr>
       <td><a href="${this.baseUrl}/books/${book.id}">${book.title}</a></td>
       <td><a href="${this.baseUrl}/authors/${book.author_id}">${book.author}</a></td>
@@ -114,7 +113,6 @@ $( document ).ready(function() {
       const haveReadTable = $("#have_read");
       const tableHeaders = "<th>Book</th> <th>Author</th> <th>Genre</th> <th>Page Count</th><th> My Rating</th> <th>My Review</th>"
       const haveRead =[];
-      debugger
       user.readBooks.forEach(function(book) {
         haveRead.push(this.renderHaveReadTr(book))
       }.bind(this));
@@ -133,7 +131,6 @@ $( document ).ready(function() {
       const bookId = event.target.dataset.book_id;
       this.adapter.markAsRead(bookId);
       this.fetchAndLoadUsers();
-      // debugger
     }
 
   }

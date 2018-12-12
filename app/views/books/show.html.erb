@@ -1,3 +1,6 @@
+<%= javascript_include_tag 'book_show' %>
+<%= javascript_include_tag 'reviews' %>
+
 <h1> <%= @book.title %> by <%= @book.author.name %> </h1>
 <br />
 
@@ -6,25 +9,31 @@
 <br /><br />
 <h4> Page count: </h4> <%= @book.page_count %>
 <br /><br />
-<h4> Average rating: </h4> <%= @book.average_rating %>
-<br /><br />
+<h4> Average rating: </h4>
+<div id="av_rating_container"> </div>
+<br />
+<h4> Your rating: </h4>
+<div id="user_rating_container">
+  <%= render '/ratings/rating_form', locals: {book: @book, rating: @rating} %>
+</div>
+
 <h4> User Reviews: </h4> <%= @book.review_count %>
 <br /><br />
-<%= button_to "Show Reviews", book_reviews_path(@book), {:method => :get, form_class: "show_reviews_button", class: "show_reviews_button"} %>
+
+<ul id="review_container" class="reviews">
+
+</ul>
+
+<button type="button" id="review_btn" class="show_reviews" data-book_id="<%=@book.id%>" data-user_id="<%=current_user.id%>">Show Reviews</button>
+
+<br />
 <br />
 
-<div id="show-reviews">
-  <ul>
-
-  </ul>
-</div>
+<h4> Add a review:</h4>
+<p><strong>Note:</strong> Adding a review will also add <%=@book.title%> to your list of books read, if not already there (because how can you review it if you haven't read it?!)</p>
 <br />
 
-<h4> Add a review: </h4>
-<br />
-<%= render partial: "reviews/review_form", locals: {review: @review, book: @book} %>
-<br />
-<p> <strong> Note: </strong> This will also add <%= @book.title %> to your profile under "Books I Have Read" if it's not already there (because how else could you review it?!) </p>
+<%= render partial: "/reviews/review_form", locals: {review: @review, book: @book} %>
 
 <br />
 
