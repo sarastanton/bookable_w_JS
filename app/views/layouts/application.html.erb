@@ -14,10 +14,9 @@
           <div class="navbar-brand">
             <% if logged_in? %>
               <%= link_to "Home", root_url %>
-            <% end %>
-          </div>
-          <div class="navbar-brand">
-            <% if logged_in? %>
+              <%= link_to "Books", books_path %>
+              <%= link_to "Genres", genres_path %>
+              <%= link_to "Authors", authors_path %>
               <%= link_to " My Books", user_path(current_user) %>
             <% end %>
           </div>

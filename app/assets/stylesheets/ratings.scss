@@ -2,36 +2,31 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-
 .rating {
-    overflow: hidden;
+    float: left;
+    width: 270px;
+}
+.rating span { float:right; position:relative; }
+.rating span input {
+    position: absolute;
+    top: 0px;
+    left:0px;
+    opacity:0;
+}
+.rating span label {
     display: inline-block;
-}
-
-.rating-input {
-    float: right;
-    /* width: 50px;
-    height: 50px; */
-    padding: 0;
-    /* margin: 0 0 0 -10px; */
-    opacity: 0;
-}
-
-.rating:hover .rating-star:hover,
-.rating:hover .rating-star:hover ~ .rating-star,
-.rating-input:checked ~ .rating-star {
-    background-position: 0 0;
-    background: url('star-filled.png');
-    // transform: scale(0.4);
-}
-
-.rating-star,
-.rating:hover .rating-star {
-    position: relative;
-    float: right;
-    display: block;
     width: 50px;
     height: 50px;
-    background: url('star.png') ;
-    // transform: scale(0.4);
+    text-align: center;
+    background: url('star.png');
+    transform: scale(0.6);
+    font-size: 50px;
+    line-height: 50px;
+}
+.rating span:hover ~ span label,
+.rating span:hover label,
+.rating span.checked label,
+.rating span.checked ~ span label {
+    background: url('star_filled.png');
+    transform: scale(0.6);
 }
