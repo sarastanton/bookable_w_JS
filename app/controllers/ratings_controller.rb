@@ -25,15 +25,15 @@ class RatingsController < ApplicationController
     end
   end
 
-  def edit
-    @rating = Rating.find(params[:id])
-    if @rating.user == current_user
-      render 'edit'
-    else
-      redirect_to user_path(@user)
-    end
-    # render json: @rating, status: 200
-  end
+  # def edit
+  #   @rating = Rating.find(params[:id])
+  #   if @rating.user == current_user
+  #     render 'edit'
+  #   else
+  #     redirect_to user_path(@user)
+  #   end
+  #   # render json: @rating, status: 200
+  # end
 
   def update
     @rating = Rating.find(params[:id])

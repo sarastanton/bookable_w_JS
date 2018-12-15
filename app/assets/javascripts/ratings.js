@@ -18,9 +18,10 @@ $( document ).ready(function(){
         book_id: bookId,
         value: value
       };
+      debugger
       return fetch(`${this.baseUrl}.json`, {
         method: 'POST',
-        headers: { "value-type": "application/json" },
+        headers: { "content-type": "application/json" },
         body: JSON.stringify({ rating }),
       }).then(function(response) {
         if(response.ok) {
@@ -98,7 +99,8 @@ $( document ).ready(function(){
       const ratingId = $("#rating_rating_id").val();
       // debugger
       event.preventDefault();
-      if (ratingId == undefined) {
+      // debugger
+      if (ratingId == "") {
         this.createNewRating();
       } else {
         this.updateRating();
@@ -110,6 +112,7 @@ $( document ).ready(function(){
       const value = $(".new_rating :checked").val();
       const userId = $("#rating_user_id").val();
       const bookId = $("#rating_book_id").val();
+      debugger
       this.adapter
       .createDBRating(userId, bookId, value)
       .then(response => response.json())

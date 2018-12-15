@@ -6,12 +6,6 @@ class ReviewsController < ApplicationController
   before_action :find_user
   protect_from_forgery with: :null_session
 
-
-  # def new
-  #   @review = Review.new(book_id: params[:book_id], user_id: helpers.current_user.id)
-  #   render json: @review, status: 200
-  # end
-
   def create
     @review = Review.create(review_params)
     if @review.save
@@ -19,7 +13,6 @@ class ReviewsController < ApplicationController
         @book.add_to_my_books(@user)
         @book.mark_as_read(@user)
       end
-      # redirect_to book_reviews_path(@book)
     else
       render 'new'
     end
@@ -34,20 +27,6 @@ class ReviewsController < ApplicationController
       format.json { render json: @reviews, status: 200 }
     end
   end
-
-  # def show
-  #   @review = Review.find(params[:id])
-  #   render json: @review, status: 200
-  # end
-  #
-  # def edit
-  #   @review = Review.find(params[:id])
-  #   if @review.user == current_user
-  #     render json: @review, status: 200
-  #   else
-  #     redirect_to book_reviews_path(@book)
-  #   end
-  # end
 
   def update
     @review = Review.find(params[:id])
