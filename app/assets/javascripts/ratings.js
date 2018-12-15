@@ -18,16 +18,17 @@ $( document ).ready(function(){
         book_id: bookId,
         value: value
       };
-      debugger
       return fetch(`${this.baseUrl}.json`, {
         method: 'POST',
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ rating }),
       }).then(function(response) {
-        if(response.ok) {
-          $(".success").text( "Rating saved successfully!")
-        }
-      });
+          if(response.ok) {
+            $(".success").text( "Rating saved successfully!")
+          }
+          return response
+        })
+        .then(response => response.json())
     }
 
     updateDBRating(id, newValue) {
@@ -40,10 +41,12 @@ $( document ).ready(function(){
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ rating }),
       }).then(function(response) {
-        if(response.ok) {
-          $(".success").text( "Rating saved successfully!")
-        }
-      });
+          if(response.ok) {
+            $(".success").text( "Rating saved successfully!")
+          }
+          return response
+        })
+        .then(response => response.json())
     }
 
   }
@@ -77,7 +80,6 @@ $( document ).ready(function(){
     }
 
     renderRating(rating) {
-      // debugger
       if (rating.id != undefined) {
         $(`#rating_value_${rating.value}`).attr('checked', 'checked');
         $("#rating_rating_id").val(`${rating.id}`)
@@ -112,7 +114,6 @@ $( document ).ready(function(){
       const value = $(".new_rating :checked").val();
       const userId = $("#rating_user_id").val();
       const bookId = $("#rating_book_id").val();
-      debugger
       this.adapter
       .createDBRating(userId, bookId, value)
       .then(response => response.json())
@@ -126,10 +127,9 @@ $( document ).ready(function(){
       const ratingId = $("#rating_rating_id").val();
       const newValue = $(".new_rating :checked").val();
       this.adapter.updateDBRating(ratingId, newValue)
-      .then(response => response.json())
-      .then(rating => {
-        this.renderRating();
-      });
+      // .then(response => console.log(response))
+      .then(JSON => new SpecificRating(JSON))
+      .then(newObject => this.renderRating(newObject));
     }
 
   }

@@ -27,7 +27,7 @@ Hated it. -------
 <br />
 <br />
 
-<%= f.submit "Save Rating", :id => "save_rating_btn" %>
+<%= f.submit "Save Rating", data: { disable_with: false, id: "save_rating_btn" } %>
 <% end %>
 
 <%= render partial: "layouts/errors", locals: {object: @rating} %>
