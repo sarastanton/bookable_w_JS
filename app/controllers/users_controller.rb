@@ -28,6 +28,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     if @user == current_user
+      pages_read_by_user(@user)
       respond_to do |format|
         format.html { render :profile }
         format.json { render json: @user, status: 200 }
@@ -38,10 +39,7 @@ class UsersController < ApplicationController
   end
 
   def index
-    respond_to do |format|
-      format.html { render :profile }
-      format.json { render json: @user, status: 200 }
-    end
+
   end
 
   private

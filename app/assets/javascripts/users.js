@@ -23,7 +23,7 @@ $( document ).ready(function() {
       return fetch(`${this.baseUrl}/books/${bookId}/mark_as_read.json`, {
         method: 'PUT',
         headers: { "content-type": "application/json" }
-      }).then(response => console.log(response.json()));
+      }).then(response => response.json());
     }
 
   }
@@ -94,12 +94,12 @@ $( document ).ready(function() {
     renderHaveReadTr(book) {
       let ratingVal;
       let reviewContent;
-      if(book.my_rating != null ){
+      if(book.my_rating != "" ){
         ratingVal = book.my_rating
-      } else (ratingVal = "")
+      } else (ratingVal = `<a href="this.baseUrl/books/${book.id}">(add rating)</a>`)
       if(book.my_review != null ){
         reviewContent = book.my_review.content
-      } else (reviewContent = "")
+      } else (reviewContent = `<a href="this.baseUrl/books/${book.id}">(add review)</a>`)
       return `<tr>
       <td><a href="${this.baseUrl}/books/${book.id}">${book.title}</a></td>
       <td><a href="${this.baseUrl}/authors/${book.author_id}">${book.author}</a></td>
