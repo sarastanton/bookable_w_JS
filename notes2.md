@@ -29,5 +29,6 @@ Repo General
 
 ________
 Link up rating form to work on Book show page
+Should user page read count be calculated on Show page or in mark_as_read action (or both)?
 Video
 Blog post

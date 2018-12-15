@@ -10,6 +10,11 @@ class RatingsController < ApplicationController
     # render json: @rating, status: 200
   end
 
+  def index
+    @rating = Rating.find_or_initialize_by(book_id: params[:book_id], user_id: helpers.current_user.id)
+    render json: @rating, status: 200
+  end
+
   def create
     @rating = Rating.create(rating_params)
     if @rating.save

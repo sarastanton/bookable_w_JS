@@ -9,7 +9,7 @@ $( document ).ready(function() {
   class ReviewsAdapter {
     // connects to API/backend
     constructor() {
-      this.baseUrl = `http://localhost:3000/books/${window.location.href.split("/")[4]}/reviews`;
+      this.baseUrl = `http://localhost:3000/books/${window.location.href.split("/")[4]}/reviews`
     }
 
     getReviews() {
@@ -56,7 +56,7 @@ $( document ).ready(function() {
       this.userId = reviewJSON.user_id;
       this.bookId = reviewJSON.book_id;
       this.content = reviewJSON.content;
-      this.userName = reviewJSON.user.username
+      this.userName = reviewJSON.username
     }
 
   }
@@ -67,7 +67,7 @@ $( document ).ready(function() {
       this.fetchAndLoadReviews();
       this.listeners();
       this.reviews = [];
-      this.baseUrl = `http://localhost:3000/books/${window.location.href.split("/")[4]}/reviews`;
+      this.baseUrl = `http://localhost:3000/books/${window.location.href.split("/")[4]}/reviews`
     }
 
     fetchAndLoadReviews() {
@@ -77,7 +77,7 @@ $( document ).ready(function() {
         reviews.forEach(review => this.reviews.push(new Review(review)))
       })
       .then(reviews => {
-        this.renderReviews()
+        this.renderReviews();
       });
     }
 
