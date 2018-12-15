@@ -97,7 +97,7 @@ $( document ).ready(function() {
       const sortedReviews = this.reviews.sort((a, b) => a.id - b.id);
       const reviewString = sortedReviews.map(review => this.renderLi(review)).join('');
       const reviewCount = $("#review_count");
-      const reviewButton = $("#review_btn");
+      const reviewButton = document.getElementById("review_btn");
       document.getElementById("review_container").innerHTML = reviewString;
       reviewCount.text(this.reviews.length);
       if(reviewButton.classList.contains("show_reviews")) {
