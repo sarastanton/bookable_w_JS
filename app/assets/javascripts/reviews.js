@@ -104,10 +104,6 @@ $( document ).ready(function() {
       // };
     }
 
-    updateReviewCount() {
-
-    }
-
     listeners() {
       $("#new_review").on("submit", this.createNewReview.bind(this));
       $(document).on("click", "a.edit:contains('edit')", this.makeEditable.bind(this));
@@ -127,7 +123,6 @@ $( document ).ready(function() {
         this.reviews.push(new Review(review));
         $("#review_content").val("");
         this.renderReviews();
-        this.updateReviewCount();
       });
     }
 
@@ -163,8 +158,8 @@ $( document ).ready(function() {
       this.adapter.deleteDBReview(reviewId)
       .then(review => {
         this.reviews = [];
-        // this.fetchAndLoadReviews();
-        this.renderReviews();
+        this.fetchAndLoadReviews();
+        // this.renderReviews();
       });
     }
 
