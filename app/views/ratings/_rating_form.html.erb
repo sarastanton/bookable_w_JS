@@ -20,12 +20,14 @@ Hated it. -------
 
   <%= f.hidden_field :user_id, value: current_user.id %>
   <%= f.hidden_field :book_id, value: @book.id %>
+  <%= f.hidden_field :rating_id, value: @rating.id %>
+
 
    ------- Loved it!
 <br />
 <br />
 
-<%= f.submit "Save Rating" %>
+<%= f.submit "Save Rating", :id => "save_rating_btn" %>
 <% end %>
 
 <%= render partial: "layouts/errors", locals: {object: @rating} %>

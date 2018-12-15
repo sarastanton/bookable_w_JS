@@ -141,7 +141,7 @@ $( document ).ready(function() {
       oldContent.focus();
     }
 
-    updateReview() {
+    updateReview(event) {
       event.preventDefault();
       const oldContent = event.target.previousElementSibling.children[1];
       const newContent = oldContent.innerText;
@@ -156,7 +156,7 @@ $( document ).ready(function() {
       });
     }
 
-    deleteReview() {
+    deleteReview(event) {
       event.preventDefault();
       const reviewId = event.target.dataset.id;
       this.adapter.deleteDBReview(reviewId)

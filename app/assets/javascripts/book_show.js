@@ -32,14 +32,9 @@ $( document ).ready(function() {
     fetchAndLoadBook() {
       this.adapter
       .getBookInfo()
-      .then(book => {
-        this.renderAverageRating(book)
+      .then(response => {
+        response.json
       });
-    }
-
-    renderAverageRating(book) {
-      const avRatingContainer = $("#av_rating_container");
-      avRatingContainer.append(`${book.avRating}`);
     }
 
     // listeners() {

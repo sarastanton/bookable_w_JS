@@ -4,6 +4,7 @@ class RatingsController < ApplicationController
   before_action :require_login
   before_action :find_book_in_params
   before_action :find_user
+  protect_from_forgery with: :null_session
 
   def new
     @rating = Rating.new(book_id: params[:book_id], user_id: helpers.current_user.id)
@@ -18,11 +19,10 @@ class RatingsController < ApplicationController
   def create
     @rating = Rating.create(rating_params)
     if @rating.save
-      redirect_to user_path(@user)
+      render json: @rating, status: 200
     else
-      render 'new'
+      redirect_to 'books_path'
     end
-    # render json: @rating, status: 200
   end
 
   def edit
@@ -38,11 +38,10 @@ class RatingsController < ApplicationController
   def update
     @rating = Rating.find(params[:id])
     if @rating.update(rating_params)
-      redirect_to user_path(@user)
+      render json: @rating, status: 200
     else
-      render 'edit'
+      redirect_to 'books_path'
     end
-    # render json: @rating, status: 200
   end
 
   private

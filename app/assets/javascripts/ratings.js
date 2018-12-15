@@ -1,11 +1,5 @@
 $( document ).ready(function(){
 
-  class RatingApp {
-    constructor() {
-      this.rating = new Rating();
-    }
-  }
-
   class RatingAdapter {
     // connects to API/backend
     constructor() {
@@ -28,27 +22,28 @@ $( document ).ready(function(){
         method: 'POST',
         headers: { "value-type": "application/json" },
         body: JSON.stringify({ rating }),
-      }).then(response => response.json());
+      }).then(function(response) {
+        if(response.ok) {
+          $(".success").text( "Rating saved successfully!")
+        }
+      });
     }
 
-    updateDBRating(newValue, id) {
+    updateDBRating(id, newValue) {
       const rating = {
-        value: newValue,
-        id: id
+        id: id,
+        value: newValue
       };
       return fetch(`${this.baseUrl}/${id}`, {
         method: 'PATCH',
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ rating }),
-      }).then(response => response.json());
+      }).then(function(response) {
+        if(response.ok) {
+          $(".success").text( "Rating saved successfully!")
+        }
+      });
     }
-
-    // deleteDBRating(id) {
-    //   return fetch(`${this.baseUrl}/${id}`, {
-    //     method: 'DELETE',
-    //     headers: { "content-type": "application/json" },
-    //   }).then(response => response.json())
-    // }
 
   }
 
@@ -58,6 +53,7 @@ $( document ).ready(function(){
       this.userId = ratingJSON.user_id;
       this.bookId = ratingJSON.book_id;
       this.value = ratingJSON.value;
+      this.avRating = ratingJSON.average_rating;
     }
 
   }
@@ -67,62 +63,56 @@ $( document ).ready(function(){
       this.adapter = new RatingAdapter();
       this.fetchAndLoadRating();
       this.listeners();
+      // this.updateRating;
       this.baseUrl = `http://localhost:3000/books/${window.location.href.split("/")[4]}/ratings`;
     }
 
     fetchAndLoadRating() {
       this.adapter
       .getRating()
-      // .then(rating => {
-      //   rating.forEach(rating => this.rating.push(new Rating(rating)))
-      // })
       .then(rating => {
-        this.renderRating()
+        this.renderRating(rating)
       });
     }
 
-    // renderLi(rating) {
-      // let edit_delete_link;
-      // if($("#rating_user_id").val() == rating.userId) {
-      //   edit_delete_link =
-      //   `<a href="#" class="edit" data-id="${rating.id}">edit</a> | <a href="" class="delete" data-id="${rating.id}">delete</a><br />`
-      // } else {
-      //   edit_delete_link = ""
-      // };
-      // return `<li><strong>${rating.userName}</strong> wrote: <p class="rating_value"> ${rating.value}</p></li>${edit_delete_link}<br />`;
-      // console.log("temp message - renderLi")
-
-    // }
-
     renderRating(rating) {
+      // debugger
       if (rating.id != undefined) {
-        $(`#rating_value_${}`)
-      }
-      console.log("temp message - renderRating")
+        $(`#rating_value_${rating.value}`).attr('checked', 'checked');
+        $("#rating_rating_id").val(`${rating.id}`)
+      };
+      this.renderAverageRating(rating.avRating);
+    }
+
+    renderAverageRating(avRating) {
+      const avRatingContainer = $("#av_rating_container");
+      avRatingContainer.empty();
+      avRatingContainer.append(`${avRating}`);
     }
 
     listeners() {
       $("#new_rating").on("submit", this.decideNewOrUpdate.bind(this));
-      // $(document).on("click", "a.edit:contains('edit')", this.makeEditable.bind(this));
-      // $(document).on("click", "a.delete:contains('delete')", this.deleteRating.bind(this));
-      // $(document).on("click", "a:contains('SAVE?')", this.updateRating.bind(this));
-      // $(document).on("click", ".show_rating", this.showRating.bind(this));
-      // $(document).on("click", ".hide_rating", this.hideRating.bind(this));
     }
 
     decideNewOrUpdate(event) {
+      const ratingId = $("#rating_rating_id").val();
+      // debugger
       event.preventDefault();
-      if (rating.id == undefined) {
-        createNewRating(rating)
+      if (ratingId == undefined) {
+        this.createNewRating();
       } else {
-        updateRating(rating)
+        this.updateRating();
       }
-
     }
 
-    createNewRating(rating) {
+    createNewRating() {
+      event.preventDefault();
+      const value = $(".new_rating :checked").val();
+      const userId = $("#rating_user_id").val();
+      const bookId = $("#rating_book_id").val();
       this.adapter
       .createDBRating(userId, bookId, value)
+      .then(response => response.json())
       .then(rating => {
         this.renderRating();
       });
@@ -130,21 +120,17 @@ $( document ).ready(function(){
 
     updateRating() {
       event.preventDefault();
-      const oldValue = event.target.previousElementSibling.children[1];
-      const newValue = oldValue.innerText;
-      const ratingId = event.target.dataset.id;
-      oldValue.valueEditable="false";
-      oldValue.classList.remove('editable');
-      event.target.classList.remove('save');
-      event.target.innerText = "edit";
-      this.adapter.updateDBRating(newValue, ratingId)
+      const ratingId = $("#rating_rating_id").val();
+      const newValue = $(".new_rating :checked").val();
+      this.adapter.updateDBRating(ratingId, newValue)
+      .then(response => response.json())
       .then(rating => {
-        this.rating.push(new Rating(rating));
+        this.renderRating();
       });
     }
 
   }
 
-  const ratingApp = new RatingApp();
+  new Rating();
 
 });
