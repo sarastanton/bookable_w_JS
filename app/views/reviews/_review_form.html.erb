@@ -1,7 +1,7 @@
 <%= form_for [book, review] do |f| %>
   <%= f.text_area :content, placeholder: "Enter review here" %>
-  <%= f.hidden_field :user_id %>
-  <%= f.hidden_field :book_id %>
+  <%= f.hidden_field :user_id, value: current_user.id %>
+  <%= f.hidden_field :book_id, value: book.id %>
   <br />
   <br />
   <%= f.submit "Submit", data: { disable_with: false } %>

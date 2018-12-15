@@ -1,5 +1,6 @@
 <%= javascript_include_tag 'book_show' %>
 <%= javascript_include_tag 'reviews' %>
+<%= javascript_include_tag 'ratings' %>
 
 <h1> <%= @book.title %> by <%= @book.author.name %> </h1>
 <br />
@@ -16,8 +17,9 @@
 <div id="user_rating_container">
   <%= render '/ratings/rating_form', locals: {book: @book, rating: @rating} %>
 </div>
-
-<h4> User Reviews: </h4> <%= @book.review_count %>
+<div class="success">  </div>
+<br />
+<h4> User Reviews: </h4> <div id="review_count"></div>
 <br /><br />
 
 <ul id="review_container" class="reviews">

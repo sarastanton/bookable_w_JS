@@ -29,6 +29,5 @@ Repo General
 
 ________
 Link up rating form to work on Book show page
-Find out what's wrong with pages read value
 Video
 Blog post

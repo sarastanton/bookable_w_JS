@@ -12,3 +12,7 @@ $( document ).ready(function(){
         alert(userRating);
     });
 });
+
+
+// $(".new_rating input:radio").is(':checked')
+//  $("#rating_book_id").val()

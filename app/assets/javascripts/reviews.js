@@ -76,9 +76,9 @@ $( document ).ready(function() {
       .then(reviews => {
         reviews.forEach(review => this.reviews.push(new Review(review)))
       })
-      // .then(reviews => {
-      //   this.renderReviews()
-      // });
+      .then(reviews => {
+        this.renderReviews()
+      });
     }
 
     renderLi(review) {
@@ -93,11 +93,19 @@ $( document ).ready(function() {
 
     }
 
-    // renderReviews() {
-    //   const sortedReviews = this.reviews.sort((a, b) => a.id - b.id);
-    //   const reviewString = sortedReviews.map(review => this.renderLi(review)).join('');
-    //   document.getElementById("review_container").innerHTML = reviewString
-    // }
+    renderReviews() {
+      const sortedReviews = this.reviews.sort((a, b) => a.id - b.id);
+      const reviewString = sortedReviews.map(review => this.renderLi(review)).join('');
+      const reviewCount = $("#review_count");
+      const reviewButton = $("#review_btn");
+      document.getElementById("review_container").innerHTML = reviewString;
+      reviewCount.text(this.reviews.length);
+      if(reviewButton.classList.contains("show_reviews")) {
+        reviewButton.classList.remove("show_reviews");
+        reviewButton.classList.add("hide_reviews");
+        reviewButton.innerText = "Hide Reviews";
+      }
+    }
 
     listeners() {
       $("#new_review").on("submit", this.createNewReview.bind(this));
@@ -125,12 +133,12 @@ $( document ).ready(function() {
     makeEditable(event) {
       event.preventDefault();
       const reviewsById = this.reviews.sort((a,b) => (a.id - b.id));
-      const oldName = event.target.previousElementSibling.children[1];
+      const oldContent = event.target.previousElementSibling.children[1];
       event.target.innerHTML = "SAVE?";
-      oldName.contentEditable="true";
-      oldName.classList.add('editable');
+      oldContent.contentEditable="true";
+      oldContent.classList.add('editable');
       event.target.classList.add('save');
-      oldName.focus();
+      oldContent.focus();
     }
 
     updateReview() {

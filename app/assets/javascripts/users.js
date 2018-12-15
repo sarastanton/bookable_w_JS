@@ -96,10 +96,10 @@ $( document ).ready(function() {
       let reviewContent;
       if(book.my_rating != "" ){
         ratingVal = book.my_rating
-      } else (ratingVal = `<a href="this.baseUrl/books/${book.id}">(add rating)</a>`)
+      } else (ratingVal = `<a href="${this.baseUrl}/books/${book.id}">(add rating)</a>`)
       if(book.my_review != null ){
         reviewContent = book.my_review.content
-      } else (reviewContent = `<a href="this.baseUrl/books/${book.id}">(add review)</a>`)
+      } else (reviewContent = `<a href="${this.baseUrl}/books/${book.id}">(add review)</a>`)
       return `<tr>
       <td><a href="${this.baseUrl}/books/${book.id}">${book.title}</a></td>
       <td><a href="${this.baseUrl}/authors/${book.author_id}">${book.author}</a></td>
