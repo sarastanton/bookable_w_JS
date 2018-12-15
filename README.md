@@ -36,12 +36,12 @@ At the time of this writing (September 2018), the Goodreads API requires an HTTP
 
 ## CONTRIBUTING
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/sarastanton/bookable. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/sarastanton/bookable_w_JS. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 ## LICENSE
 
-The application is available as open source under the terms of the [MIT License](https://github.com/sarastanton/bookable/blob/master/LICENSE).
+The application is available as open source under the terms of the [MIT License](https://github.com/sarastanton/bookable_w_JS/blob/master/LICENSE).
 
 ## CODE OF CONDUCT
 
-Everyone interacting in the Bookable project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/sarastanton/bookable/blob/master/CODE_OF_CONDUCT.md).
+Everyone interacting in the Bookable project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/sarastanton/bookable_w_JS/blob/master/CODE_OF_CONDUCT.md).

@@ -28,7 +28,3 @@ Repo General
 [ ]  You don't include changes in a commit that aren't related to the commit message
 
 ________
-Link up rating form to work on Book show page
-Should user page read count be calculated on Show page or in mark_as_read action (or both)?
-Video
-Blog post
