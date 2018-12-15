@@ -1,11 +1,5 @@
 $( document ).ready(function() {
 
-  class UsersApp {
-    constructor() {
-      this.users = new Users();
-    }
-  }
-
   class UsersAdapter {
     // connects to API/backend
     constructor() {
@@ -23,7 +17,7 @@ $( document ).ready(function() {
       return fetch(`${this.baseUrl}/books/${bookId}/mark_as_read.json`, {
         method: 'PUT',
         headers: { "content-type": "application/json" }
-      }).then(response => response.json());
+      }).then(response => console.log(response))
     }
 
   }
@@ -135,6 +129,6 @@ $( document ).ready(function() {
 
   }
 
-  const usersApp = new UsersApp();
+  new Users();
 
 })

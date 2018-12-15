@@ -24,7 +24,7 @@ $( document ).ready(function() {
       return fetch(`${this.baseUrl}/${id}/add_to_my_books.json`, {
         method: 'PUT',
         headers: { "content-type": "application/json" }
-      }).then(response => response.json());
+      }).then(response => console.log(response));
     }
 
     createDBBook(title, authorName, genreName, pageCount) {

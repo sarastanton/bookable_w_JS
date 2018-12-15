@@ -73,6 +73,7 @@ class BooksController < ApplicationController
     @read_status = ReadStatus.find_by(book_id: book_id, user_id: current_user.id)
     @read_status.value = true
     @read_status.save
+    render json: { user: @current_user}
   end
 
   private
