@@ -58,13 +58,13 @@ $( document ).ready(function() {
   class Reviews {
     constructor() {
       this.adapter = new ReviewsAdapter();
-      this.fetchAndLoadReviews();
+      this.fetchAndPrepareReviews();
       this.listeners();
       this.reviews = [];
       this.baseUrl = `http://localhost:3000/books/${window.location.href.split("/")[4]}/reviews`
     }
 
-    fetchAndLoadReviews() {
+    fetchAndPrepareReviews() {
       this.adapter
       .getReviews()
       .then(reviews => {
@@ -72,6 +72,17 @@ $( document ).ready(function() {
       })
       .then(reviews => {
         this.prepareReviews()
+      });
+    }
+
+    fetchAndShowReviews() {
+      this.adapter
+      .getReviews()
+      .then(reviews => {
+        reviews.forEach(review => this.reviews.push(new Review(review)))
+      })
+      .then(reviews => {
+        this.showReviews()
       });
     }
 
@@ -87,9 +98,13 @@ $( document ).ready(function() {
     }
 
     prepareReviews() {
+      this.updateReviewCount();
+      this.hideReviews();
+    }
+
+    updateReviewCount() {
       const reviewCount = $("#review_count");
       reviewCount.text(this.reviews.length);
-      this.hideReviews()
     }
 
     listeners() {
@@ -126,7 +141,7 @@ $( document ).ready(function() {
     }
 
     updateReview(event) {
-      event.preventDefault();
+      debugger
       const oldContent = event.target.previousElementSibling.children[1];
       const newContent = oldContent.innerText;
       const reviewId = event.target.dataset.id;
@@ -146,8 +161,7 @@ $( document ).ready(function() {
       this.adapter.deleteDBReview(reviewId)
       .then(review => {
         this.reviews = [];
-        this.fetchAndLoadReviews();
-        // this.renderReviews();
+        this.fetchAndShowReviews();
       });
     }
 
@@ -164,6 +178,7 @@ $( document ).ready(function() {
       const sortedReviews = this.reviews.sort((a, b) => a.id - b.id);
       const reviewString = sortedReviews.map(review => this.renderLi(review)).join('');
       const reviewButton = document.getElementById("review_btn");
+      this.updateReviewCount();
       document.getElementById("review_container").innerHTML = reviewString;
       reviewButton.classList.remove("show_reviews");
       reviewButton.classList.add("hide_reviews");
