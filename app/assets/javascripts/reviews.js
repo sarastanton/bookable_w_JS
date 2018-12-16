@@ -1,11 +1,5 @@
 $( document ).ready(function() {
 
-  class ReviewsApp {
-    constructor() {
-      this.reviews = new Reviews();
-    }
-  }
-
   class ReviewsAdapter {
     // connects to API/backend
     constructor() {
@@ -77,7 +71,7 @@ $( document ).ready(function() {
         reviews.forEach(review => this.reviews.push(new Review(review)))
       })
       .then(reviews => {
-        this.renderReviews()
+        this.prepareReviews()
       });
     }
 
@@ -92,16 +86,10 @@ $( document ).ready(function() {
       return `<li><strong>${review.userName}</strong> wrote: <p class="review_content"> ${review.content}</p></li>${edit_delete_link}<br />`;
     }
 
-    renderReviews() {
-      const sortedReviews = this.reviews.sort((a, b) => a.id - b.id);
-      const reviewString = sortedReviews.map(review => this.renderLi(review)).join('');
-      const reviewButton = document.getElementById("review_btn");
+    prepareReviews() {
       const reviewCount = $("#review_count");
       reviewCount.text(this.reviews.length);
-      document.getElementById("review_container").innerHTML = reviewString;
-      // if(reviewButton.classList.contains("show_reviews")) {
-      //   this.toggleReviewVisible();
-      // };
+      this.hideReviews()
     }
 
     listeners() {
@@ -122,7 +110,7 @@ $( document ).ready(function() {
       .then(review => {
         this.reviews.push(new Review(review));
         $("#review_content").val("");
-        this.renderReviews();
+        this.showReviews();
       });
     }
 
@@ -166,38 +154,32 @@ $( document ).ready(function() {
     toggleReviewVisible() {
       const reviewButton = document.getElementById("review_btn");
       if(reviewButton.classList.contains("show_reviews")) {
-        reviewButton.classList.remove("show_reviews");
-        reviewButton.classList.add("hide_reviews");
-        reviewButton.innerText = "Hide Reviews";
         this.showReviews();
       } else if (reviewButton.classList.contains("hide_reviews")) {
-          reviewButton.classList.remove("hide_reviews");
-          reviewButton.classList.add("show_reviews");
-          reviewButton.innerText = "Show Reviews";
           this.hideReviews(event);
       }
     }
 
     showReviews() {
-      // event.preventDefault();
-      // const sortedReviews = this.reviews.sort((a, b) => a.id - b.id);
-      // const reviewString = sortedReviews.map(review => this.renderLi(review)).join('');
-      // document.getElementById("review_container").innerHTML = reviewString
-      this.renderReviews();
-      // event.target.classList.remove("show_reviews");
-      // event.target.classList.add("hide_reviews");
-      // event.target.innerText = "Hide Reviews";
+      const sortedReviews = this.reviews.sort((a, b) => a.id - b.id);
+      const reviewString = sortedReviews.map(review => this.renderLi(review)).join('');
+      const reviewButton = document.getElementById("review_btn");
+      document.getElementById("review_container").innerHTML = reviewString;
+      reviewButton.classList.remove("show_reviews");
+      reviewButton.classList.add("hide_reviews");
+      reviewButton.innerText = "Hide Reviews";
     }
 
     hideReviews() {
+      const reviewButton = document.getElementById("review_btn");
       $("#review_container").empty();
-      // event.target.classList.remove("hide_reviews");
-      // event.target.classList.add("show_reviews");
-      // event.target.innerText = "Show Reviews";
+      reviewButton.classList.remove("hide_reviews");
+      reviewButton.classList.add("show_reviews");
+      reviewButton.innerText = "Show Reviews";
     }
 
   }
 
-  const reviewsApp = new ReviewsApp();
+  new Reviews();
 
 })

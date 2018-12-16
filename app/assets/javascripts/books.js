@@ -1,11 +1,5 @@
 $( document ).ready(function() {
 
-  class BooksApp {
-    constructor() {
-      this.books = new Books();
-    }
-  }
-
   class BooksAdapter {
     // connects to API/backend
     constructor() {
@@ -115,7 +109,7 @@ $( document ).ready(function() {
       <td><a href="${this.baseUrl}/genres/${book.genreId}">${book.genreName}</a></td>
       <td>${book.pageCount}</td>
       <td>${book.avRating}</td>
-      <td><a href="${this.baseUrl}/books/${book.id}/reviews">${book.reviews.length}</a></td>
+      <td>${book.reviews.length}</td>
       <td>${myBooksOption}</td><td><a href="" class="edit" data-id="${book.id}">edit</a></td>
       </tr>`;
     }
@@ -202,6 +196,6 @@ $( document ).ready(function() {
 
   }
 
-  const booksApp = new BooksApp();
+  new Books();
 
 })

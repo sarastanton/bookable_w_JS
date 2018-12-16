@@ -1,11 +1,5 @@
 $( document ).ready(function() {
 
-  class AuthorsApp {
-    constructor() {
-      this.authors = new Authors();
-    }
-  }
-
   class AuthorsAdapter {
     // connects to API/backend
     constructor() {
@@ -155,6 +149,6 @@ $( document ).ready(function() {
 
   }
 
-  const authorsApp = new AuthorsApp();
+  new Authors();
 
 })

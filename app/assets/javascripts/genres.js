@@ -1,11 +1,5 @@
 $( document ).ready(function() {
 
-  class GenresApp {
-    constructor() {
-      this.genres = new Genres();
-    }
-  }
-
   class GenresAdapter {
     // connects to API/backend
     constructor() {
@@ -174,6 +168,6 @@ $( document ).ready(function() {
 
   }
 
-  const genresApp = new GenresApp();
+  new Genres();
 
 })
