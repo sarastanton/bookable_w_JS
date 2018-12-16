@@ -42,7 +42,7 @@ $( document ).ready(function(){
         body: JSON.stringify({ rating }),
       }).then(function(response) {
           if(response.ok) {
-            $(".success").text( "Rating saved successfully!")
+            $(".success").text( "Rating saved successfully!");
           }
           return response
         })
@@ -80,11 +80,12 @@ $( document ).ready(function(){
     }
 
     renderRating(rating) {
+      console.log(rating);
+      this.renderAverageRating(rating.avRating);
       if (rating.id != undefined) {
         $(`#rating_value_${rating.value}`).attr('checked', 'checked');
         $("#rating_rating_id").val(`${rating.id}`)
       };
-      this.renderAverageRating(rating.avRating);
     }
 
     renderAverageRating(avRating) {
@@ -116,20 +117,19 @@ $( document ).ready(function(){
       const bookId = $("#rating_book_id").val();
       this.adapter
       .createDBRating(userId, bookId, value)
-      .then(response => response.json())
-      .then(rating => {
-        this.fetchAndLoadRating();
-      });
+      // .then(response => response.json())
+      // .then(response => console.log(response))
+      .then(rating => this.fetchAndLoadRating());
     }
 
     updateRating() {
       event.preventDefault();
       const ratingId = $("#rating_rating_id").val();
       const newValue = $(".new_rating :checked").val();
-      this.adapter.updateDBRating(ratingId, newValue)
-      // .then(response => console.log(response))
-      .then(JSON => new SpecificRating(JSON))
-      .then(newObject => this.fetchAndLoadRating());
+      this.adapter
+      .updateDBRating(ratingId, newValue)
+      .then(response => response.json())
+      .then(rating => this.fetchAndLoadRating());
     }
 
   }
