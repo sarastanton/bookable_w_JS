@@ -118,7 +118,7 @@ $( document ).ready(function(){
       .createDBRating(userId, bookId, value)
       .then(response => response.json())
       .then(rating => {
-        this.renderRating();
+        this.fetchAndLoadRating();
       });
     }
 
@@ -129,7 +129,7 @@ $( document ).ready(function(){
       this.adapter.updateDBRating(ratingId, newValue)
       // .then(response => console.log(response))
       .then(JSON => new SpecificRating(JSON))
-      .then(newObject => this.renderRating(newObject));
+      .then(newObject => this.fetchAndLoadRating());
     }
 
   }
