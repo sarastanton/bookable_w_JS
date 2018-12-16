@@ -99,9 +99,7 @@ $( document ).ready(function(){
 
     decideNewOrUpdate(event) {
       const ratingId = $("#rating_rating_id").val();
-      // debugger
       event.preventDefault();
-      // debugger
       if (ratingId == "") {
         this.createNewRating();
       } else {
@@ -116,8 +114,6 @@ $( document ).ready(function(){
       const bookId = $("#rating_book_id").val();
       this.adapter
       .createDBRating(userId, bookId, value)
-      // .then(response => response.json())
-      // .then(response => console.log(response))
       .then(rating => this.fetchAndLoadRating());
     }
 
@@ -127,7 +123,6 @@ $( document ).ready(function(){
       const newValue = $(".new_rating :checked").val();
       this.adapter
       .updateDBRating(ratingId, newValue)
-      .then(response => response.json())
       .then(rating => this.fetchAndLoadRating());
     }
 
