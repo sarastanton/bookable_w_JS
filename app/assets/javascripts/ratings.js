@@ -80,7 +80,6 @@ $( document ).ready(function(){
     }
 
     renderRating(rating) {
-      console.log(rating);
       this.renderAverageRating(rating.avRating);
       if (rating.id != undefined) {
         $(`#rating_value_${rating.value}`).attr('checked', 'checked');
