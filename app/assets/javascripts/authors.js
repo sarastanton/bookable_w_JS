@@ -3,7 +3,7 @@ $( document ).ready(function() {
   class AuthorsAdapter {
     // connects to API/backend
     constructor() {
-      this.baseUrl = 'http://localhost:3000/authors';
+      this.baseUrl = 'https://saras-bookable.herokuapp.com/authors';
     }
 
     getAuthors() {
@@ -57,7 +57,7 @@ $( document ).ready(function() {
       this.fetchAndLoadAuthors();
       this.listeners();
       this.authors = [];
-      this.baseUrl = 'http://localhost:3000/authors';
+      this.baseUrl = 'https://saras-bookable.herokuapp.com/authors';
     }
 
     fetchAndLoadAuthors() {

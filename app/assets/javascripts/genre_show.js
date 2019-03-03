@@ -3,7 +3,7 @@ $( document ).ready(function() {
   class GenresAdapter {
     // connects to API/backend
     constructor() {
-      this.baseUrl = 'http://localhost:3000/genres';
+      this.baseUrl = 'https://saras-bookable.herokuapp.com/genres';
     }
 
     getSpecificGenre() {
@@ -31,7 +31,7 @@ $( document ).ready(function() {
     constructor() {
       this.adapter = new GenresAdapter();
       this.fetchAndLoadGenreInfo();
-      this.baseUrl = 'http://localhost:3000';
+      this.baseUrl = 'https://saras-bookable.herokuapp.com';
     }
 
     fetchAndLoadGenreInfo() {
@@ -51,7 +51,7 @@ $( document ).ready(function() {
     }
 
     renderTr(genreBook) {
-      return `<tr><td><a href="http://localhost:3000/books/${genreBook.id}">${genreBook.title}</a></td><td><a href="http://localhost:3000/authors/${genreBook.author_id}">${genreBook.author}</a></td></tr>`
+      return `<tr><td><a href="https://saras-bookable.herokuapp.com/books/${genreBook.id}">${genreBook.title}</a></td><td><a href="https://saras-bookable.herokuapp.com/authors/${genreBook.author_id}">${genreBook.author}</a></td></tr>`
     }
 
   }

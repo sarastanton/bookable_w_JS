@@ -3,7 +3,7 @@ $( document ).ready(function() {
   class BooksAdapter {
     // connects to API/backend
     constructor() {
-      this.baseUrl = 'http://localhost:3000/books';
+      this.baseUrl = 'https://saras-bookable.herokuapp.com/books';
     }
 
     getBooks() {
@@ -81,7 +81,7 @@ $( document ).ready(function() {
       this.fetchAndLoadBooks();
       this.listeners();
       this.books = [];
-      this.baseUrl = 'http://localhost:3000';
+      this.baseUrl = 'https://saras-bookable.herokuapp.com';
     }
 
     fetchAndLoadBooks() {

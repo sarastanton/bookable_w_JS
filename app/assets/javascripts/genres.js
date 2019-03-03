@@ -3,7 +3,7 @@ $( document ).ready(function() {
   class GenresAdapter {
     // connects to API/backend
     constructor() {
-      this.baseUrl = 'http://localhost:3000/genres';
+      this.baseUrl = 'https://saras-bookable.herokuapp.com/genres';
     }
 
     getGenres() {
@@ -61,7 +61,7 @@ $( document ).ready(function() {
       this.fetchAndLoadGenres();
       this.listeners();
       this.genres = [];
-      this.baseUrl = 'http://localhost:3000/genres';
+      this.baseUrl = 'https://saras-bookable.herokuapp.com/genres';
     }
 
     fetchAndLoadGenres() {

@@ -3,7 +3,7 @@ $( document ).ready(function() {
   class ReviewsAdapter {
     // connects to API/backend
     constructor() {
-      this.baseUrl = `http://localhost:3000/books/${window.location.href.split("/")[4]}/reviews`
+      this.baseUrl = `https://saras-bookable.herokuapp.com/books/${window.location.href.split("/")[4]}/reviews`
     }
 
     getReviews() {
@@ -61,7 +61,7 @@ $( document ).ready(function() {
       this.fetchAndPrepareReviews();
       this.listeners();
       this.reviews = [];
-      this.baseUrl = `http://localhost:3000/books/${window.location.href.split("/")[4]}/reviews`
+      this.baseUrl = `https://saras-bookable.herokuapp.com/books/${window.location.href.split("/")[4]}/reviews`
     }
 
     fetchAndPrepareReviews() {

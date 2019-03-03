@@ -3,7 +3,7 @@ $( document ).ready(function() {
   class UsersAdapter {
     // connects to API/backend
     constructor() {
-      this.baseUrl = 'http://localhost:3000';
+      this.baseUrl = 'https://saras-bookable.herokuapp.com';
     }
 
     getUserInfo() {
@@ -38,7 +38,7 @@ $( document ).ready(function() {
       this.adapter = new UsersAdapter();
       this.fetchAndLoadUsers();
       this.listeners();
-      this.baseUrl = 'http://localhost:3000';
+      this.baseUrl = 'https://saras-bookable.herokuapp.com';
       this.currentUserId =  parseInt($(".login_status")[0].dataset.current_user);
     }
 
