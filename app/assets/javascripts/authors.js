@@ -152,3 +152,5 @@ $( document ).ready(function() {
   new Authors();
 
 })
+
+// <i class="far fa-edit"></i>

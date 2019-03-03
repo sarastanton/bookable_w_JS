@@ -126,7 +126,6 @@ $( document ).ready(function() {
     }
 
     listeners() {
-      // const body = document.querySelector('body');
       $("#new_book").on("submit", this.createNewBook.bind(this));
       $(document).on("click", ".add_to_my_books", this.addToMyBooks.bind(this));
       $(document).on("click", "a.edit:contains('edit')", this.makeEditable.bind(this));
@@ -186,7 +185,6 @@ $( document ).ready(function() {
       editableBookValues.forEach(node => node.classList.remove('editable'));
       event.target.classList.remove('save');
       event.target.innerText = "edit";
-      debugger
       this.adapter.updateDBBook(...editedBookValues)
       .then(book => {
         this.books.push(new Book(book));
