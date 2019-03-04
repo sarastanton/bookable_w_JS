@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   end
 
   get '/login' => 'sessions#new'
-  get '/auth/goodreads2/callback' => 'sessions#create'
+  get '/auth/goodreads3/callback' => 'sessions#create'
   post '/login' => 'sessions#create'
   post '/logout' => 'sessions#destroy'
 
