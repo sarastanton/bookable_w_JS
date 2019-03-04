@@ -41,7 +41,7 @@ gem 'compass-rails', '~> 3.0.2'
 
 gem 'omniauth'
 gem 'omniauth-oauth'
-gem 'omniauth-goodreads2'
+gem 'omniauth-goodreads3'
 gem 'multi_xml'
 gem 'dotenv-rails'
 gem 'thin'
