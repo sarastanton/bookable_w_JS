@@ -9,7 +9,7 @@
 User.create(username: "Allison", password: "test")
 User.create(username: "Brian", password: "test")
 User.create(username: "Cassie", password: "test")
-User.create(username: "Doug", password: "test")
+User.create(username: "test", password: "test")
 
 Author.create(name: "Leigh Bardugo")
 Author.create(name: "Diana Gabaldon")
